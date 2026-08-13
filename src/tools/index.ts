@@ -80,7 +80,7 @@ import { tool as svgPlaceholderGenerator } from './svg-placeholder-generator';
 import { tool as temperatureConverter } from './temperature-converter';
 import { tool as textStatistics } from './text-statistics';
 import { tool as tokenGenerator } from './token-generator';
-import { Photo } from '@vicons/tabler';
+import { Bulb, Photo } from '@vicons/tabler';
 import type { Tool, ToolCategory } from './tools.types';
 import { tool as urlEncoder } from './url-encoder';
 import { tool as urlParser } from './url-parser';
@@ -88,6 +88,17 @@ import { tool as uuidGenerator } from './uuid-generator';
 import { tool as macAddressLookup } from './mac-address-lookup';
 import { tool as xmlFormatter } from './xml-formatter';
 import { tool as yamlViewer } from './yaml-viewer';
+
+
+const ifangan: Tool = {
+  name: 'i方案',
+  path: '/ifangan',
+  description: '面向本地商家和内容运营者的智能内容工作平台，提供文案生成、诊断优化、跟单话术、文生图、视频包和模板素材，帮你更快完成营销内容。',
+  keywords: ['i方案', '营销文案', '内容运营', '文案生成', '文生图', '视频包', '模板'],
+  icon: Bulb,
+  externalUrl: 'https://www.i41.cn',
+  isNew: true,
+};
 
 const imageEditCompressor: Tool = {
   name: '图片修改压缩',
@@ -152,7 +163,7 @@ export const toolsByCategory: ToolCategory[] = [
   },
   {
     name: 'Images and videos',
-    components: [imageEditCompressor, qrCodeGenerator, wifiQrCodeGenerator, svgPlaceholderGenerator, cameraRecorder],
+    components: [ifangan, imageEditCompressor, qrCodeGenerator, wifiQrCodeGenerator, svgPlaceholderGenerator, cameraRecorder],
   },
   {
     name: 'Development',

@@ -120,7 +120,7 @@ const tools = computed<ToolCategory[]>(() => [
           <NavbarButtons v-if="!styleStore.isSmallScreen" />
         </div>
 
-        <c-tooltip position="bottom">
+        <c-tooltip position="bottom" tooltip-class="ifangan-tooltip-popover">
           <c-button
             round
             href="https://www.i41.cn"
@@ -177,10 +177,21 @@ const tools = computed<ToolCategory[]>(() => [
   margin-right: 8px;
 }
 
-.ifangan-tooltip {
+::v-deep(.ifangan-tooltip-popover) {
+  width: min(520px, calc(100vw - 32px));
   max-width: 520px;
   white-space: normal;
-  line-height: 1.6;
+  transform-origin: top right;
+}
+
+::v-deep(.ifangan-tooltip-popover.top-100\%) {
+  right: 0;
+  left: auto;
+  transform: none;
+}
+
+.ifangan-tooltip {
+  line-height: 1.7;
   text-align: left;
 }
 

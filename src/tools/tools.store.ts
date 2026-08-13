@@ -42,7 +42,19 @@ export const useToolStore = defineStore('tools', () => {
     tools,
     favoriteTools,
     toolsByCategory,
-    newTools: computed(() => tools.value.filter(({ isNew }) => isNew)),
+    newTools: computed(() => tools.value
+      .filter(({ isNew }) => isNew)
+      .sort((a, b) => {
+        if (a.path === '/ifangan') {
+          return -1;
+        }
+
+        if (b.path === '/ifangan') {
+          return 1;
+        }
+
+        return 0;
+      })),
 
     addToolToFavorites({ tool }: { tool: MaybeRef<Tool> }) {
       const toolPath = get(tool).path;
