@@ -9,7 +9,9 @@ const props = withDefaults(defineProps<{ toolsByCategory?: ToolCategory[] }>(), 
 const { toolsByCategory } = toRefs(props);
 const route = useRoute();
 
-const makeLabel = (tool: Tool) => () => h(RouterLink, { to: tool.path }, { default: () => tool.name });
+const makeLabel = (tool: Tool) => () => tool.externalUrl
+  ? h('a', { href: tool.externalUrl, target: '_blank', rel: 'noopener noreferrer' }, tool.name)
+  : h(RouterLink, { to: tool.path }, { default: () => tool.name });
 const makeIcon = (tool: Tool) => () => h(MenuIconItem, { tool });
 
 const collapsedCategories = useStorage<Record<string, boolean>>(

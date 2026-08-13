@@ -6,12 +6,14 @@ import { tools } from './tools';
 import { config } from './config';
 import { routes as demoRoutes } from './ui/demo/demo.routes';
 
-const toolsRoutes = tools.map(({ path, name, component, ...config }) => ({
-  path,
-  name,
-  component,
-  meta: { isTool: true, layout: layouts.toolLayout, name, ...config },
-}));
+const toolsRoutes = tools
+  .filter(({ component }) => component)
+  .map(({ path, name, component, ...config }) => ({
+    path,
+    name,
+    component,
+    meta: { isTool: true, layout: layouts.toolLayout, name, ...config },
+  }));
 const toolsRedirectRoutes = tools
   .filter(({ redirectFrom }) => redirectFrom && redirectFrom.length > 0)
   .flatMap(

@@ -19,7 +19,7 @@ export const useCommandPaletteStore = defineStore('command-palette', () => {
 
   const toolsOptions = toolStore.tools.map(tool => ({
     ...tool,
-    to: tool.path,
+    ...(tool.externalUrl ? { href: tool.externalUrl } : { to: tool.path }),
     toolCategory: tool.category,
     category: '工具',
   }));

@@ -1,15 +1,20 @@
 <script setup lang="ts">
 import { useThemeVars } from 'naive-ui';
+import { RouterLink } from 'vue-router';
 import FavoriteButton from './FavoriteButton.vue';
 import type { Tool } from '@/tools/tools.types';
 
 const props = defineProps<{ tool: Tool & { category: string } }>();
 const { tool } = toRefs(props);
 const theme = useThemeVars();
+const cardLinkTag = computed(() => tool.value.externalUrl ? 'a' : RouterLink);
+const cardLinkProps = computed(() => tool.value.externalUrl
+  ? { href: tool.value.externalUrl, target: '_blank', rel: 'noopener noreferrer' }
+  : { to: tool.value.path });
 </script>
 
 <template>
-  <router-link :to="tool.path" class="decoration-none">
+  <component :is="cardLinkTag" v-bind="cardLinkProps" class="decoration-none">
     <c-card class="h-full transition transition-duration-0.5s !border-2px !hover:border-primary">
       <div flex items-center justify-between>
         <n-icon class="text-neutral-400 dark:text-neutral-600" size="40" :component="tool.icon" />
@@ -37,5 +42,5 @@ const theme = useThemeVars();
         {{ tool.description }}
       </div>
     </c-card>
-  </router-link>
+  </component>
 </template>

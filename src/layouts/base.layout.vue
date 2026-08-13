@@ -120,6 +120,27 @@ const tools = computed<ToolCategory[]>(() => [
           <NavbarButtons v-if="!styleStore.isSmallScreen" />
         </div>
 
+        <c-tooltip position="bottom">
+          <c-button
+            round
+            href="https://www.i41.cn"
+            rel="noopener noreferrer"
+            target="_blank"
+            class="ifangan-button"
+            :bordered="false"
+            aria-label="访问i方案"
+            @click="() => tracker.trackEvent({ eventName: 'Visit i41 button clicked' })"
+          >
+            访问i方案
+          </c-button>
+
+          <template #tooltip>
+            <div class="ifangan-tooltip">
+              i方案是一套面向本地实体商家、内容运营人员和营销服务团队的智能内容工作平台。平台围绕行业、平台、品类、风格和使用场景，提供文案生成、文案诊断、客户跟单话术、文生图、视频包制作和精品模板等能力，帮助用户从内容构思、表单草稿、生成优化到后续复用形成完整工作链路。
+            </div>
+          </template>
+        </c-tooltip>
+
         <c-tooltip position="bottom" :tooltip="$t('home.support')">
           <c-button
             round
@@ -151,6 +172,17 @@ const tools = computed<ToolCategory[]>(() => [
 //     background-position: 0 0, @position @position;
 //     background-size: @size @size;
 // }
+
+.ifangan-button {
+  margin-right: 8px;
+}
+
+.ifangan-tooltip {
+  max-width: 520px;
+  white-space: normal;
+  line-height: 1.6;
+  text-align: left;
+}
 
 .support-button {
   background: rgb(37, 99, 108);

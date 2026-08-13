@@ -5,8 +5,9 @@ export interface Tool {
   path: string
   description: string
   keywords: string[]
-  component: () => Promise<Component>
+  component?: () => Promise<Component>
   icon: Component
+  externalUrl?: string
   redirectFrom?: string[]
   isNew: boolean
   createdAt?: Date

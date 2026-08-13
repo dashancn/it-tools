@@ -80,13 +80,24 @@ import { tool as svgPlaceholderGenerator } from './svg-placeholder-generator';
 import { tool as temperatureConverter } from './temperature-converter';
 import { tool as textStatistics } from './text-statistics';
 import { tool as tokenGenerator } from './token-generator';
-import type { ToolCategory } from './tools.types';
+import { Photo } from '@vicons/tabler';
+import type { Tool, ToolCategory } from './tools.types';
 import { tool as urlEncoder } from './url-encoder';
 import { tool as urlParser } from './url-parser';
 import { tool as uuidGenerator } from './uuid-generator';
 import { tool as macAddressLookup } from './mac-address-lookup';
 import { tool as xmlFormatter } from './xml-formatter';
 import { tool as yamlViewer } from './yaml-viewer';
+
+const imageEditCompressor: Tool = {
+  name: '图片修改压缩',
+  path: '/image-edit-compressor',
+  description: '在线图片修改与压缩工具',
+  keywords: ['image', 'compress', 'resize', '图片', '压缩', '修改'],
+  icon: Photo,
+  externalUrl: 'https://imgzip.i41.cn',
+  isNew: true,
+};
 
 export const toolsByCategory: ToolCategory[] = [
   {
@@ -141,7 +152,7 @@ export const toolsByCategory: ToolCategory[] = [
   },
   {
     name: 'Images and videos',
-    components: [qrCodeGenerator, wifiQrCodeGenerator, svgPlaceholderGenerator, cameraRecorder],
+    components: [imageEditCompressor, qrCodeGenerator, wifiQrCodeGenerator, svgPlaceholderGenerator, cameraRecorder],
   },
   {
     name: 'Development',
