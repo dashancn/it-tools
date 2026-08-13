@@ -32,13 +32,13 @@ const symbolic = computed(() => computeChmodSymbolicRepresentation({ permissions
         <tr>
           <th class="text-center" scope="col" />
           <th class="text-center" scope="col">
-            Owner (u)
+            所有者 (u)
           </th>
           <th class="text-center" scope="col">
-            Group (g)
+            组 (g)
           </th>
           <th class="text-center" scope="col">
-            Public (o)
+            其他用户 (o)
           </th>
         </tr>
       </thead>

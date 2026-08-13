@@ -126,7 +126,7 @@ const validation = useValidation({
   watch: [formatIndex],
   rules: [
     {
-      message: 'This date is invalid for this format',
+      message: '此日期对当前格式无效',
       validator: value =>
         withDefaultOnError(() => {
           if (value === '') {
@@ -155,7 +155,7 @@ function formatDateUsingFormatter(formatter: (date: Date) => string, date?: Date
       <c-input-text
         v-model:value="inputDate"
         autofocus
-        placeholder="Put your date string here..."
+        placeholder="在这里输入日期字符串..."
         clearable
         test-id="date-time-converter-input"
         :validation="validation"
@@ -180,7 +180,7 @@ function formatDateUsingFormatter(formatter: (date: Date) => string, date?: Date
       label-position="left"
       label-align="right"
       :value="formatDateUsingFormatter(fromDate, normalizedDate)"
-      placeholder="Invalid date..."
+      placeholder="无效日期..."
       :test-id="name"
       readonly
       mt-2

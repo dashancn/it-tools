@@ -15,7 +15,7 @@ const networkInfo = computed(() => withDefaultOnError(() => getNetworkInfo(ip.va
 
 const ipValidationRules = [
   {
-    message: 'We cannot parse this address, check the format',
+    message: '无法解析此地址，请检查格式',
     validator: (value: string) => isNotThrowing(() => getNetworkInfo(value.trim())),
   },
 ];
@@ -86,8 +86,8 @@ function switchToBlock({ count = 1 }: { count?: number }) {
   <div>
     <c-input-text
       v-model:value="ip"
-      label="An IPv4 address with or without mask"
-      placeholder="The ipv4 address..."
+      label="带或不带掩码的 IPv4 地址"
+      placeholder="IPv4 地址..."
       :validation-rules="ipValidationRules"
       mb-4
     />
@@ -112,10 +112,10 @@ function switchToBlock({ count = 1 }: { count?: number }) {
       <div mt-3 flex items-center justify-between>
         <c-button @click="switchToBlock({ count: -1 })">
           <n-icon :component="ArrowLeft" />
-          Previous block
+          上一个 block
         </c-button>
         <c-button @click="switchToBlock({ count: 1 })">
-          Next block
+          下一个 block
           <n-icon :component="ArrowRight" />
         </c-button>
       </div>

@@ -8,16 +8,16 @@ const decodeUrlSafe = useStorage('base64-string-converter--decode-url-safe', fal
 
 const textInput = ref('');
 const base64Output = computed(() => textToBase64(textInput.value, { makeUrlSafe: encodeUrlSafe.value }));
-const { copy: copyTextBase64 } = useCopy({ source: base64Output, text: 'Base64 string copied to the clipboard' });
+const { copy: copyTextBase64 } = useCopy({ source: base64Output, text: 'Base64 字符串已复制到剪贴板' });
 
 const base64Input = ref('');
 const textOutput = computed(() =>
   withDefaultOnError(() => base64ToText(base64Input.value.trim(), { makeUrlSafe: decodeUrlSafe.value }), ''),
 );
-const { copy: copyText } = useCopy({ source: textOutput, text: 'String copied to the clipboard' });
+const { copy: copyText } = useCopy({ source: textOutput, text: '字符串已复制到剪贴板' });
 const b64ValidationRules = [
   {
-    message: 'Invalid base64 string',
+    message: '无效的 Base64 字符串',
     validator: (value: string) => isValidBase64(value.trim(), { makeUrlSafe: decodeUrlSafe.value }),
   },
 ];
@@ -25,56 +25,56 @@ const b64ValidationWatch = [decodeUrlSafe];
 </script>
 
 <template>
-  <c-card title="String to base64">
-    <n-form-item label="Encode URL safe" label-placement="left">
+  <c-card title="字符串转 Base64">
+    <n-form-item label="URL 安全编码" label-placement="left">
       <n-switch v-model:value="encodeUrlSafe" />
     </n-form-item>
     <c-input-text
       v-model:value="textInput"
       multiline
-      placeholder="Put your string here..."
+      placeholder="在这里输入字符串..."
       rows="5"
-      label="String to encode"
+      label="要编码的字符串"
       raw-text
       mb-5
     />
 
     <c-input-text
-      label="Base64 of string"
+      label="字符串的 Base64"
       :value="base64Output"
       multiline
       readonly
-      placeholder="The base64 encoding of your string will be here"
+      placeholder="字符串的 Base64 编码会显示在这里"
       rows="5"
       mb-5
     />
 
     <div flex justify-center>
       <c-button @click="copyTextBase64()">
-        Copy base64
+        复制 Base64
       </c-button>
     </div>
   </c-card>
 
-  <c-card title="Base64 to string">
-    <n-form-item label="Decode URL safe" label-placement="left">
+  <c-card title="Base64 转字符串">
+    <n-form-item label="URL 安全解码" label-placement="left">
       <n-switch v-model:value="decodeUrlSafe" />
     </n-form-item>
     <c-input-text
       v-model:value="base64Input"
       multiline
-      placeholder="Your base64 string..."
+      placeholder="你的 Base64 字符串..."
       rows="5"
       :validation-rules="b64ValidationRules"
       :validation-watch="b64ValidationWatch"
-      label="Base64 string to decode"
+      label="要解码的 Base64 字符串"
       mb-5
     />
 
     <c-input-text
       v-model:value="textOutput"
-      label="Decoded string"
-      placeholder="The decoded string will be here"
+      label="解码后的字符串"
+      placeholder="解码后的字符串会显示在这里"
       multiline
       rows="5"
       readonly
@@ -83,7 +83,7 @@ const b64ValidationWatch = [decodeUrlSafe];
 
     <div flex justify-center>
       <c-button @click="copyText()">
-        Copy decoded string
+        复制解码后的字符串
       </c-button>
     </div>
   </c-card>

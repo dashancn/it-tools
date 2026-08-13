@@ -19,7 +19,7 @@ const base64InputValidation = useValidation({
   source: base64Input,
   rules: [
     {
-      message: 'Invalid base 64 string',
+      message: '无效的 Base64 字符串',
       validator: value => isValidBase64(value.trim()),
     },
   ],
@@ -69,7 +69,7 @@ function downloadFile() {
 
 const fileInput = ref() as Ref<File>;
 const { base64: fileBase64 } = useBase64(fileInput);
-const { copy: copyFileBase64 } = useCopy({ source: fileBase64, text: 'Base64 string copied to the clipboard' });
+const { copy: copyFileBase64 } = useCopy({ source: fileBase64, text: 'Base64 字符串已复制到剪贴板' });
 
 async function onUpload(file: File) {
   if (file) {
@@ -79,21 +79,21 @@ async function onUpload(file: File) {
 </script>
 
 <template>
-  <c-card title="Base64 to file">
+  <c-card title="Base64 转文件">
     <n-grid cols="3" x-gap="12">
       <n-gi span="2">
         <c-input-text
           v-model:value="fileName"
-          label="File Name"
-          placeholder="Download filename"
+          label="文件名"
+          placeholder="下载文件名"
           mb-2
         />
       </n-gi>
       <n-gi>
         <c-input-text
           v-model:value="fileExtension"
-          label="Extension"
-          placeholder="Extension"
+          label="扩展名"
+          placeholder="扩展名"
           mb-2
         />
       </n-gi>
@@ -101,7 +101,7 @@ async function onUpload(file: File) {
     <c-input-text
       v-model:value="base64Input"
       multiline
-      placeholder="Put your base64 file string here..."
+      placeholder="在这里输入 Base64 文件字符串..."
       rows="5"
       :validation="base64InputValidation"
       mb-2
@@ -116,18 +116,18 @@ async function onUpload(file: File) {
         Preview image
       </c-button>
       <c-button :disabled="base64Input === '' || !base64InputValidation.isValid" @click="downloadFile()">
-        Download file
+        下载文件
       </c-button>
     </div>
   </c-card>
 
-  <c-card title="File to base64">
-    <c-file-upload title="Drag and drop a file here, or click to select a file" @file-upload="onUpload" />
-    <c-input-text :value="fileBase64" multiline readonly placeholder="File in base64 will be here" rows="5" my-2 />
+  <c-card title="文件转 Base64">
+    <c-file-upload title="将文件拖放到这里，或点击选择文件" @file-upload="onUpload" />
+    <c-input-text :value="fileBase64" multiline readonly placeholder="文件的 Base64 会显示在这里" rows="5" my-2 />
 
     <div flex justify-center>
       <c-button @click="copyFileBase64()">
-        Copy
+        复制
       </c-button>
     </div>
   </c-card>

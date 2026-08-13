@@ -13,10 +13,17 @@ const theme = computed(() => (styleStore.isDarkTheme ? darkTheme : null));
 const themeOverrides = computed(() => (styleStore.isDarkTheme ? darkThemeOverrides : lightThemeOverrides));
 
 const { locale } = useI18n();
+const storedLocale = useStorage('locale', 'zh');
+const migratedLocaleKey = 'it-tools-cn-locale-migrated';
+
+if (storedLocale.value === 'en' && !localStorage.getItem(migratedLocaleKey)) {
+  storedLocale.value = 'zh';
+  localStorage.setItem(migratedLocaleKey, 'true');
+}
 
 syncRef(
   locale,
-  useStorage('locale', 'zh'),
+  storedLocale,
 );
 </script>
 

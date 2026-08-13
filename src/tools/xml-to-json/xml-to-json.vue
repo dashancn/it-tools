@@ -14,17 +14,17 @@ function transformer(value: string) {
 const rules: UseValidationRule<string>[] = [
   {
     validator: isValidXML,
-    message: 'Provided XML is not valid.',
+    message: '提供的 XML 无效。',
   },
 ];
 </script>
 
 <template>
   <format-transformer
-    input-label="Your XML content"
+    input-label="XML 内容"
     :input-default="defaultValue"
-    input-placeholder="Paste your XML content here..."
-    output-label="Converted JSON"
+    input-placeholder="在这里粘贴 XML 内容..."
+    output-label="转换后的 JSON"
     output-language="json"
     :transformer="transformer"
     :input-validation-rules="rules"

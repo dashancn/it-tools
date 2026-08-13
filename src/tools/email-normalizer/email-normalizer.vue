@@ -17,17 +17,17 @@ const normalizedEmails = computed(() => {
     .join('\n');
 });
 
-const { copy } = useCopy({ source: normalizedEmails, text: 'Normalized emails copied to the clipboard', createToast: true });
+const { copy } = useCopy({ source: normalizedEmails, text: '规范化邮箱已复制到剪贴板', createToast: true });
 </script>
 
 <template>
   <div>
     <div class="mb-2">
-      Raw emails to normalize:
+      待规范化的原始邮箱：
     </div>
     <c-input-text
       v-model:value="emails"
-      placeholder="Put your emails here (one per line)..."
+      placeholder="在这里输入邮箱（每行一个）..."
       rows="3"
       multiline
       autocomplete="off"
@@ -39,11 +39,11 @@ const { copy } = useCopy({ source: normalizedEmails, text: 'Normalized emails co
     />
 
     <div class="mb-2 mt-4">
-      Normalized emails:
+      规范化后的邮箱：
     </div>
     <c-input-text
       :value="normalizedEmails"
-      placeholder="Normalized emails will appear here..."
+      placeholder="规范化后的邮箱会显示在这里..."
       rows="3"
       autocomplete="off"
       autocorrect="off"
@@ -55,10 +55,10 @@ const { copy } = useCopy({ source: normalizedEmails, text: 'Normalized emails co
     />
     <div class="mt-4 flex justify-center gap-2">
       <c-button @click="emails = ''">
-        Clear emails
+        清空邮箱
       </c-button>
       <c-button :disabled="!normalizedEmails" @click="copy()">
-        Copy normalized emails
+        复制规范化邮箱
       </c-button>
     </div>
   </div>

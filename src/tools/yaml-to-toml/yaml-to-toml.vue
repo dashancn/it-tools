@@ -11,16 +11,16 @@ const transformer = (value: string) => value.trim() === '' ? '' : withDefaultOnE
 const rules: UseValidationRule<string>[] = [
   {
     validator: (v: string) => v === '' || parseYaml(v),
-    message: 'Provided JSON is not valid.',
+    message: '提供的 JSON 无效。',
   },
 ];
 </script>
 
 <template>
   <format-transformer
-    input-label="Your YAML"
-    input-placeholder="Paste your YAML here..."
-    output-label="TOML from your YAML"
+    input-label="你的 YAML"
+    input-placeholder="在这里粘贴 YAML..."
+    output-label="由 YAML 转换的 TOML"
     output-language="toml"
     :input-validation-rules="rules"
     :transformer="transformer"

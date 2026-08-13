@@ -17,7 +17,7 @@ const calculatedValues: {
   getNewValue: (result: Ipv4RangeExpanderResult | undefined) => string | undefined
 }[] = [
   {
-    label: 'Start address',
+    label: '起始地址',
     getOldValue: () => rawStartAddress.value,
     getNewValue: result => result?.newStart,
   },
@@ -40,11 +40,11 @@ const calculatedValues: {
 
 const startIpValidation = useValidation({
   source: rawStartAddress,
-  rules: [{ message: 'Invalid ipv4 address', validator: ip => isValidIpv4({ ip }) }],
+  rules: [{ message: '无效的 IPv4 地址', validator: ip => isValidIpv4({ ip }) }],
 });
 const endIpValidation = useValidation({
   source: rawEndAddress,
-  rules: [{ message: 'Invalid ipv4 address', validator: ip => isValidIpv4({ ip }) }],
+  rules: [{ message: '无效的 IPv4 地址', validator: ip => isValidIpv4({ ip }) }],
 });
 
 const showResult = computed(() => endIpValidation.isValid && startIpValidation.isValid && result.value !== undefined);
@@ -61,16 +61,16 @@ function onSwitchStartEndClicked() {
     <div mb-4 flex gap-4>
       <c-input-text
         v-model:value="rawStartAddress"
-        label="Start address"
-        placeholder="Start IPv4 address..."
+        label="起始地址"
+        placeholder="起始 IPv4 地址..."
         :validation="startIpValidation"
         clearable
       />
 
       <c-input-text
         v-model:value="rawEndAddress"
-        label="End address"
-        placeholder="End IPv4 address..."
+        label="结束地址"
+        placeholder="结束 IPv4 地址..."
         :validation="endIpValidation"
         clearable
       />
@@ -83,10 +83,10 @@ function onSwitchStartEndClicked() {
 &nbsp;
           </th>
           <th scope="col">
-            old value
+            旧值
           </th>
           <th scope="col">
-            new value
+            新值
           </th>
         </tr>
       </thead>
@@ -102,7 +102,7 @@ function onSwitchStartEndClicked() {
     </n-table>
     <n-alert
       v-else-if="startIpValidation.isValid && endIpValidation.isValid"
-      title="Invalid combination of start and end IPv4 address"
+      title="起始和结束 IPv4 地址组合无效"
       type="error"
     >
       <div my-3 op-70>

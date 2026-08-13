@@ -9,16 +9,16 @@ const transformer = (value: string) => value === '' ? '' : withDefaultOnError(()
 const rules: UseValidationRule<string>[] = [
   {
     validator: isValidToml,
-    message: 'Provided TOML is not valid.',
+    message: '提供的 TOML 无效。',
   },
 ];
 </script>
 
 <template>
   <format-transformer
-    input-label="Your TOML"
-    input-placeholder="Paste your TOML here..."
-    output-label="JSON from your TOML"
+    input-label="你的 TOML"
+    input-placeholder="在这里粘贴 TOML..."
+    output-label="由 TOML 转换的 JSON"
     output-language="json"
     :input-validation-rules="rules"
     :transformer="transformer"

@@ -16,16 +16,16 @@ function transformer(value: string) {
 const rules: UseValidationRule<string>[] = [
   {
     validator: (v: string) => v === '' || JSON5.parse(v),
-    message: 'Provided JSON is not valid.',
+    message: '提供的 JSON 无效。',
   },
 ];
 </script>
 
 <template>
   <format-transformer
-    input-label="Your raw JSON"
-    input-placeholder="Paste your raw JSON here..."
-    output-label="CSV version of your JSON"
+    input-label="原始 JSON"
+    input-placeholder="在这里粘贴原始 JSON..."
+    output-label="JSON 的 CSV 版本"
     :input-validation-rules="rules"
     :transformer="transformer"
   />

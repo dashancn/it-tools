@@ -3,7 +3,7 @@ import { types as extensionToMimeType, extensions as mimeTypeToExtension } from 
 
 const mimeInfos = Object.entries(mimeTypeToExtension).map(([mimeType, extensions]) => ({ mimeType, extensions }));
 
-const mimeToExtensionsOptions = Object.keys(mimeTypeToExtension).map(label => ({ label, value: label }));
+const mimeToExtensionOptions = Object.keys(mimeTypeToExtension).map(label => ({ label, value: label }));
 const selectedMimeType = ref(undefined);
 
 const extensionsFound = computed(() => (selectedMimeType.value ? mimeTypeToExtension[selectedMimeType.value] : []));
@@ -21,23 +21,23 @@ const mimeTypeFound = computed(() => (selectedExtension.value ? extensionToMimeT
 <template>
   <c-card>
     <n-h2 style="margin-bottom: 0">
-      Mime type to extension
+      MIME 类型转扩展名
     </n-h2>
     <div style="opacity: 0.8">
-      Know which file extensions are associated to a mime-type
+      查询 MIME 类型对应的文件扩展名
     </div>
     <c-select
       v-model:value="selectedMimeType"
       searchable
       my-4
-      :options="mimeToExtensionsOptions"
-      placeholder="Select your mimetype here... (ex: application/pdf)"
+      :options="mimeToExtensionOptions"
+      placeholder="在这里选择 MIME 类型...（例如：application/pdf）"
     />
 
     <div v-if="extensionsFound.length > 0">
-      Extensions of files with the <n-tag round :bordered="false">
+      文件扩展名，对应 <n-tag round :bordered="false">
         {{ selectedMimeType }}
-      </n-tag> mime-type:
+      </n-tag> MIME 类型：
       <div style="margin-top: 10px">
         <n-tag
           v-for="extension of extensionsFound"
@@ -55,21 +55,21 @@ const mimeTypeFound = computed(() => (selectedExtension.value ? extensionToMimeT
 
   <c-card>
     <n-h2 style="margin-bottom: 0">
-      File extension to mime type
+      文件扩展名转 MIME 类型
     </n-h2>
     <div style="opacity: 0.8">
-      Know which mime type is associated to a file extension
+      查询文件扩展名对应的 MIME 类型
     </div>
     <c-select
       v-model:value="selectedExtension"
       searchable
       my-4
       :options="extensionToMimeTypeOptions"
-      placeholder="Select your mimetype here... (ex: application/pdf)"
+      placeholder="在这里选择 MIME 类型...（例如：application/pdf）"
     />
 
     <div v-if="selectedExtension">
-      Mime type associated to the extension <n-tag round :bordered="false">
+      此扩展名对应的 MIME 类型 <n-tag round :bordered="false">
         {{ selectedExtension }}
       </n-tag> file
       extension:
@@ -85,8 +85,8 @@ const mimeTypeFound = computed(() => (selectedExtension.value ? extensionToMimeT
     <n-table>
       <thead>
         <tr>
-          <th>Mime types</th>
-          <th>Extensions</th>
+          <th>MIME 类型</th>
+          <th>扩展名</th>
         </tr>
       </thead>
       <tbody>
