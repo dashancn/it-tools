@@ -16,7 +16,7 @@ const { locale } = useI18n();
 
 syncRef(
   locale,
-  useStorage('locale', locale),
+  useStorage('locale', 'zh'),
 );
 </script>
 

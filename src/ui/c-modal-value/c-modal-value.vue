@@ -24,7 +24,7 @@ const toggleModal = useToggle(isModalOpen);
 
     <div mt-4 flex justify-center>
       <c-button class="w-full" @click="copy">
-        {{ isJustCopied ? 'Copied!' : 'Copy' }}
+        {{ isJustCopied ? '已复制！' : '复制' }}
       </c-button>
     </div>
   </c-modal>

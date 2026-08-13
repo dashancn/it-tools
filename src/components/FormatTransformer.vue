@@ -16,10 +16,10 @@ const props = withDefaults(
   {
     transformer: _.identity,
     inputValidationRules: () => [],
-    inputLabel: 'Input',
+    inputLabel: '输入',
     inputDefault: '',
-    inputPlaceholder: 'Input...',
-    outputLabel: 'Output',
+    inputPlaceholder: '请输入...',
+    outputLabel: '输出',
     outputLanguage: '',
   },
 );
