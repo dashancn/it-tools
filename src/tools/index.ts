@@ -1,3 +1,4 @@
+import { Bulb, IdBadge, Photo } from '@vicons/tabler';
 import { tool as base64FileConverter } from './base64-file-converter';
 import { tool as base64StringConverter } from './base64-string-converter';
 import { tool as basicAuthGenerator } from './basic-auth-generator';
@@ -80,7 +81,6 @@ import { tool as svgPlaceholderGenerator } from './svg-placeholder-generator';
 import { tool as temperatureConverter } from './temperature-converter';
 import { tool as textStatistics } from './text-statistics';
 import { tool as tokenGenerator } from './token-generator';
-import { Bulb, Photo } from '@vicons/tabler';
 import type { Tool, ToolCategory } from './tools.types';
 import { tool as urlEncoder } from './url-encoder';
 import { tool as urlParser } from './url-parser';
@@ -88,7 +88,6 @@ import { tool as uuidGenerator } from './uuid-generator';
 import { tool as macAddressLookup } from './mac-address-lookup';
 import { tool as xmlFormatter } from './xml-formatter';
 import { tool as yamlViewer } from './yaml-viewer';
-
 
 const ifangan: Tool = {
   name: 'i方案',
@@ -107,6 +106,16 @@ const imageEditCompressor: Tool = {
   keywords: ['image', 'compress', 'resize', '图片', '压缩', '修改'],
   icon: Photo,
   externalUrl: 'https://imgzip.i41.cn',
+  isNew: true,
+};
+
+const idPhotoMaker: Tool = {
+  name: '证件照制作',
+  path: '/id-photo-maker',
+  description: '在线制作证件照，快速生成常用尺寸的标准证件照片',
+  keywords: ['id photo', '证件照', '证件照片', '照片制作', '换底色'],
+  icon: IdBadge,
+  externalUrl: 'https://idphoto.i41.cn',
   isNew: true,
 };
 
@@ -163,7 +172,7 @@ export const toolsByCategory: ToolCategory[] = [
   },
   {
     name: 'Images and videos',
-    components: [ifangan, imageEditCompressor, qrCodeGenerator, wifiQrCodeGenerator, svgPlaceholderGenerator, cameraRecorder],
+    components: [ifangan, imageEditCompressor, idPhotoMaker, qrCodeGenerator, wifiQrCodeGenerator, svgPlaceholderGenerator, cameraRecorder],
   },
   {
     name: 'Development',

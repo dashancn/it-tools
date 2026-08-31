@@ -2,7 +2,7 @@
 import { NIcon, useThemeVars } from 'naive-ui';
 
 import { RouterLink } from 'vue-router';
-import { Heart, Home2, Menu2 } from '@vicons/tabler';
+import { Heart, Home2, IdBadge, Menu2, Photo } from '@vicons/tabler';
 
 import { storeToRefs } from 'pinia';
 import HeroGradient from '../assets/hero-gradient.svg?component';
@@ -54,6 +54,17 @@ const tools = computed<ToolCategory[]>(() => [
 
           <div flex justify-center>
             <NavbarButtons />
+          </div>
+
+          <div class="company-tools-links company-tools-links--mobile">
+            <c-button href="https://imgzip.i41.cn" rel="noopener noreferrer" target="_blank" size="small" variant="text">
+              <NIcon :component="Photo" mr-1 />
+              图片压缩
+            </c-button>
+            <c-button href="https://idphoto.i41.cn" rel="noopener noreferrer" target="_blank" size="small" variant="text">
+              <NIcon :component="IdBadge" mr-1 />
+              证件照
+            </c-button>
           </div>
         </div>
 
@@ -120,6 +131,17 @@ const tools = computed<ToolCategory[]>(() => [
           <NavbarButtons v-if="!styleStore.isSmallScreen" />
         </div>
 
+        <div v-if="!styleStore.isSmallScreen" class="company-tools-links">
+          <c-button href="https://imgzip.i41.cn" rel="noopener noreferrer" target="_blank" size="small" variant="text">
+            <NIcon :component="Photo" mr-1 />
+            图片压缩
+          </c-button>
+          <c-button href="https://idphoto.i41.cn" rel="noopener noreferrer" target="_blank" size="small" variant="text">
+            <NIcon :component="IdBadge" mr-1 />
+            证件照
+          </c-button>
+        </div>
+
         <c-tooltip position="bottom" tooltip-class="ifangan-tooltip-popover">
           <c-button
             round
@@ -175,6 +197,22 @@ const tools = computed<ToolCategory[]>(() => [
 
 .ifangan-button {
   margin-right: 8px;
+  font-weight: 600;
+  box-shadow: 0 0 0 1px v-bind('themeVars.primaryColor');
+}
+
+.company-tools-links {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  white-space: nowrap;
+}
+
+.company-tools-links--mobile {
+  width: 90%;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 8px 0 4px;
 }
 
 ::v-deep(.ifangan-tooltip-popover) {
