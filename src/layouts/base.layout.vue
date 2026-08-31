@@ -57,14 +57,26 @@ const tools = computed<ToolCategory[]>(() => [
           </div>
 
           <div class="company-tools-links company-tools-links--mobile">
-            <c-button href="https://imgzip.i41.cn" rel="noopener noreferrer" target="_blank" size="small" variant="text">
-              <NIcon :component="Photo" mr-1 />
-              图片压缩
-            </c-button>
-            <c-button href="https://idphoto.i41.cn" rel="noopener noreferrer" target="_blank" size="small" variant="text">
-              <NIcon :component="IdBadge" mr-1 />
-              证件照
-            </c-button>
+            <c-tooltip
+              position="bottom"
+              tooltip="图片修改压缩是一款浏览器端在线图片处理工具，支持压缩、调整尺寸和格式转换，图片尽量在本地处理，适合日常上传、分享和网页优化。"
+              tooltip-class="company-tool-tooltip-popover"
+            >
+              <c-button href="https://imgzip.i41.cn" rel="noopener noreferrer" target="_blank" size="small" variant="text">
+                <NIcon :component="Photo" mr-1 />
+                图片压缩
+              </c-button>
+            </c-tooltip>
+            <c-tooltip
+              position="bottom"
+              tooltip="证件照工作室是一款浏览器端证件照制作工具，支持本地智能抠图、背景换色、常用证件尺寸和 300DPI 多图拼版，照片无需上传到业务服务器。"
+              tooltip-class="company-tool-tooltip-popover"
+            >
+              <c-button href="https://idphoto.i41.cn" rel="noopener noreferrer" target="_blank" size="small" variant="text">
+                <NIcon :component="IdBadge" mr-1 />
+                证件照
+              </c-button>
+            </c-tooltip>
           </div>
         </div>
 
@@ -132,14 +144,26 @@ const tools = computed<ToolCategory[]>(() => [
         </div>
 
         <div v-if="!styleStore.isSmallScreen" class="company-tools-links">
-          <c-button href="https://imgzip.i41.cn" rel="noopener noreferrer" target="_blank" size="small" variant="text">
-            <NIcon :component="Photo" mr-1 />
-            图片压缩
-          </c-button>
-          <c-button href="https://idphoto.i41.cn" rel="noopener noreferrer" target="_blank" size="small" variant="text">
-            <NIcon :component="IdBadge" mr-1 />
-            证件照
-          </c-button>
+          <c-tooltip
+            position="bottom"
+            tooltip="图片修改压缩是一款浏览器端在线图片处理工具，支持压缩、调整尺寸和格式转换，图片尽量在本地处理，适合日常上传、分享和网页优化。"
+            tooltip-class="company-tool-tooltip-popover"
+          >
+            <c-button href="https://imgzip.i41.cn" rel="noopener noreferrer" target="_blank" size="small" variant="text">
+              <NIcon :component="Photo" mr-1 />
+              图片压缩
+            </c-button>
+          </c-tooltip>
+          <c-tooltip
+            position="bottom"
+            tooltip="证件照工作室是一款浏览器端证件照制作工具，支持本地智能抠图、背景换色、常用证件尺寸和 300DPI 多图拼版，照片无需上传到业务服务器。"
+            tooltip-class="company-tool-tooltip-popover"
+          >
+            <c-button href="https://idphoto.i41.cn" rel="noopener noreferrer" target="_blank" size="small" variant="text">
+              <NIcon :component="IdBadge" mr-1 />
+              证件照
+            </c-button>
+          </c-tooltip>
         </div>
 
         <c-tooltip position="bottom" tooltip-class="ifangan-tooltip-popover">
@@ -226,6 +250,14 @@ const tools = computed<ToolCategory[]>(() => [
   right: 0;
   left: auto;
   transform: none;
+}
+
+::v-deep(.company-tool-tooltip-popover) {
+  width: min(360px, calc(100vw - 32px));
+  max-width: 360px;
+  white-space: normal;
+  line-height: 1.7;
+  text-align: left;
 }
 
 .ifangan-tooltip {

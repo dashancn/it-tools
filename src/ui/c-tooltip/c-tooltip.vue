@@ -6,13 +6,23 @@ const props = withDefaults(defineProps<{ tooltip?: string; position?: 'top' | 'b
 });
 const { tooltip, position, tooltipClass } = toRefs(props);
 
-const targetRef = ref();
+const targetRef = ref<HTMLElement>();
 const isTargetHovered = useElementHover(targetRef);
+const isTargetFocusedWithin = ref(false);
+const isTooltipVisible = computed(() => isTargetHovered.value || isTargetFocusedWithin.value);
+
+function handleFocusOut(event: FocusEvent) {
+  isTargetFocusedWithin.value = targetRef.value?.contains(event.relatedTarget as Node) ?? false;
+}
 </script>
 
 <template>
   <div relative inline-block>
-    <div ref="targetRef">
+    <div
+      ref="targetRef"
+      @focusin="isTargetFocusedWithin = true"
+      @focusout="handleFocusOut"
+    >
       <slot />
     </div>
 
@@ -20,8 +30,8 @@ const isTargetHovered = useElementHover(targetRef);
       v-if="tooltip || $slots.tooltip"
       class="absolute z-10 rounded bg-black px-12px py-6px text-sm text-white shadow-lg transition transition transition-duration-0.2s"
       :class="{
-        'op-0 scale-0': isTargetHovered === false,
-        'op-100 scale-100': isTargetHovered,
+        'op-0 scale-0': isTooltipVisible === false,
+        'op-100 scale-100': isTooltipVisible,
         'whitespace-nowrap': !$slots.tooltip,
         [tooltipClass]: Boolean(tooltipClass),
         'bottom-100% left-50% -translate-x-1/2 mb-5px': position === 'top',
@@ -31,7 +41,7 @@ const isTargetHovered = useElementHover(targetRef);
       }"
     >
       <slot
-        v-if="isTargetHovered"
+        v-if="isTooltipVisible"
         name="tooltip"
       >
         {{ tooltip }}
