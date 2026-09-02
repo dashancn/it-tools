@@ -128,6 +128,7 @@ const tools = computed<ToolCategory[]>(() => [
               Corentin Thomasset
             </c-link>
           </div>
+          <div>i41 免费实用工具</div>
         </div>
       </div>
     </template>
@@ -209,7 +210,7 @@ const tools = computed<ToolCategory[]>(() => [
         <c-tooltip position="bottom" tooltip-class="ifangan-tooltip-popover">
           <c-button
             round
-            href="https://www.i41.cn"
+            href="https://www.i41.cn?utm_source=tools&amp;utm_medium=tool_referral&amp;utm_campaign=ifangan&amp;utm_content=ecosystem_nav"
             rel="noopener noreferrer"
             target="_blank"
             class="ifangan-button"

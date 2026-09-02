@@ -17,4 +17,10 @@ describe('company navigation tooltips', () => {
   ])('provides the %s description for desktop and mobile entries', (_name, tooltip, expectedCount) => {
     expect(layoutSource.split(tooltip).length - 1).toBe(expectedCount);
   });
+
+  it('attributes the i方案 ecosystem navigation and the tool site correctly', () => {
+    expect(layoutSource).toContain('href="https://www.i41.cn?utm_source=tools&amp;utm_medium=tool_referral&amp;utm_campaign=ifangan&amp;utm_content=ecosystem_nav"');
+    expect(layoutSource).toContain('i41 免费实用工具');
+    expect(layoutSource).not.toMatch(/i方案(?:永久免费|免费)|免费(?:的)?i方案/);
+  });
 });

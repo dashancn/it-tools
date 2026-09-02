@@ -95,7 +95,7 @@ const ifangan: Tool = {
   description: '面向本地商家和内容运营者的智能内容工作平台，提供文案生成、诊断优化、跟单话术、文生图、视频包和模板素材，帮你更快完成营销内容。',
   keywords: ['i方案', '营销文案', '内容运营', '文案生成', '文生图', '视频包', '模板'],
   icon: Bulb,
-  externalUrl: 'https://www.i41.cn',
+  externalUrl: 'https://www.i41.cn?utm_source=tools&utm_medium=tool_referral&utm_campaign=ifangan&utm_content=ecosystem_nav',
   isNew: true,
 };
 
