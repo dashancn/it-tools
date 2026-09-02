@@ -24,6 +24,16 @@ function onUpdateFavoriteTools() {
 <template>
   <div class="pt-50px">
     <div class="grid-wrapper">
+      <aside class="iplan-cta" aria-label="关注 i方案">
+        <div>
+          <strong>关注 i方案</strong>
+          <span>获取内容创作、客户跟单、文生图与视频制作方案</span>
+        </div>
+        <a href="https://www.i41.cn" target="_blank" rel="noopener noreferrer">
+          访问 i方案 →
+        </a>
+      </aside>
+
       <div class="grid grid-cols-1 gap-12px lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2 xl:grid-cols-4">
         <ColoredCard v-if="config.showBanner" :title="$t('home.follow.title')" :icon="IconHeart">
           {{ $t('home.follow.p1') }}
@@ -87,6 +97,51 @@ function onUpdateFavoriteTools() {
 </template>
 
 <style scoped lang="less">
+.iplan-cta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 24px;
+  padding: 18px 20px;
+  border: 1px solid #f1cf62;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #fff9dd, #fff3ac);
+  box-shadow: 0 12px 30px rgba(112, 82, 0, 0.12);
+
+  div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  strong {
+    color: #5d4300;
+    font-size: 18px;
+  }
+
+  span {
+    color: #7d681f;
+    font-size: 14px;
+  }
+
+  a {
+    flex-shrink: 0;
+    padding: 10px 16px;
+    border-radius: 999px;
+    background: #172133;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  @media (max-width: 640px) {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
 .height-enter-active,
 .height-leave-active {
   transition: all 0.5s ease-in-out;
