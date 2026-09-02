@@ -1,4 +1,4 @@
-import { Bulb, IdBadge, Photo } from '@vicons/tabler';
+import { Bulb, Clipboard, IdBadge, Photo, ShieldLock } from '@vicons/tabler';
 import { tool as base64FileConverter } from './base64-file-converter';
 import { tool as base64StringConverter } from './base64-string-converter';
 import { tool as basicAuthGenerator } from './basic-auth-generator';
@@ -119,6 +119,26 @@ const idPhotoMaker: Tool = {
   isNew: true,
 };
 
+const idWatermark: Tool = {
+  name: '证件水印',
+  path: '/id-watermark',
+  description: '为身份证、营业执照和合同截图添加用途水印，图片仅在浏览器本地处理',
+  keywords: ['watermark', '证件', '水印', '身份证', '营业执照', '防盗用'],
+  icon: ShieldLock,
+  externalUrl: 'https://watermark.i41.cn',
+  isNew: true,
+};
+
+const temporaryClipboard: Tool = {
+  name: '临时剪贴板',
+  path: '/temporary-clipboard',
+  description: '客户端加密、自动过期、读取次数限制和阅后即焚的跨端临时文本传递工具',
+  keywords: ['clipboard', 'paste', '剪贴板', '加密', '阅后即焚', '跨端'],
+  icon: Clipboard,
+  externalUrl: 'https://clip.i41.cn',
+  isNew: true,
+};
+
 export const toolsByCategory: ToolCategory[] = [
   {
     name: 'Crypto',
@@ -172,7 +192,7 @@ export const toolsByCategory: ToolCategory[] = [
   },
   {
     name: 'Images and videos',
-    components: [ifangan, imageEditCompressor, idPhotoMaker, qrCodeGenerator, wifiQrCodeGenerator, svgPlaceholderGenerator, cameraRecorder],
+    components: [ifangan, imageEditCompressor, idPhotoMaker, idWatermark, temporaryClipboard, qrCodeGenerator, wifiQrCodeGenerator, svgPlaceholderGenerator, cameraRecorder],
   },
   {
     name: 'Development',

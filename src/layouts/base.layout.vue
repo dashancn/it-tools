@@ -2,7 +2,7 @@
 import { NIcon, useThemeVars } from 'naive-ui';
 
 import { RouterLink } from 'vue-router';
-import { Heart, Home2, IdBadge, Menu2, Photo } from '@vicons/tabler';
+import { Clipboard, Heart, Home2, IdBadge, Menu2, Photo, ShieldLock } from '@vicons/tabler';
 
 import { storeToRefs } from 'pinia';
 import HeroGradient from '../assets/hero-gradient.svg?component';
@@ -75,6 +75,26 @@ const tools = computed<ToolCategory[]>(() => [
               <c-button href="https://idphoto.i41.cn" rel="noopener noreferrer" target="_blank" size="small" variant="text">
                 <NIcon :component="IdBadge" mr-1 />
                 证件照
+              </c-button>
+            </c-tooltip>
+            <c-tooltip
+              position="bottom"
+              tooltip="证件水印工具支持为身份证、营业执照和合同截图添加用途水印，图片仅在浏览器本地处理。"
+              tooltip-class="company-tool-tooltip-popover"
+            >
+              <c-button href="https://watermark.i41.cn" rel="noopener noreferrer" target="_blank" size="small" variant="text">
+                <NIcon :component="ShieldLock" mr-1 />
+                证件水印
+              </c-button>
+            </c-tooltip>
+            <c-tooltip
+              position="bottom"
+              tooltip="临时剪贴板支持客户端加密、自动过期、读取次数限制和阅后即焚，适合跨设备传递临时文本。"
+              tooltip-class="company-tool-tooltip-popover"
+            >
+              <c-button href="https://clip.i41.cn" rel="noopener noreferrer" target="_blank" size="small" variant="text">
+                <NIcon :component="Clipboard" mr-1 />
+                临时剪贴板
               </c-button>
             </c-tooltip>
           </div>
@@ -162,6 +182,26 @@ const tools = computed<ToolCategory[]>(() => [
             <c-button href="https://idphoto.i41.cn" rel="noopener noreferrer" target="_blank" size="small" variant="text">
               <NIcon :component="IdBadge" mr-1 />
               证件照
+            </c-button>
+          </c-tooltip>
+          <c-tooltip
+            position="bottom"
+            tooltip="证件水印工具支持为身份证、营业执照和合同截图添加用途水印，图片仅在浏览器本地处理。"
+            tooltip-class="company-tool-tooltip-popover"
+          >
+            <c-button href="https://watermark.i41.cn" rel="noopener noreferrer" target="_blank" size="small" variant="text">
+              <NIcon :component="ShieldLock" mr-1 />
+              证件水印
+            </c-button>
+          </c-tooltip>
+          <c-tooltip
+            position="bottom"
+            tooltip="临时剪贴板支持客户端加密、自动过期、读取次数限制和阅后即焚，适合跨设备传递临时文本。"
+            tooltip-class="company-tool-tooltip-popover"
+          >
+            <c-button href="https://clip.i41.cn" rel="noopener noreferrer" target="_blank" size="small" variant="text">
+              <NIcon :component="Clipboard" mr-1 />
+              临时剪贴板
             </c-button>
           </c-tooltip>
         </div>
