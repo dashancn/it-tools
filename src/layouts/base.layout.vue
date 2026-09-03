@@ -129,6 +129,9 @@ const tools = computed<ToolCategory[]>(() => [
             </c-link>
           </div>
           <div>i41 免费实用工具</div>
+          <div class="privacy-notice">
+            隐私说明：文件和工具输入仍在浏览器本地处理。我们会发送匿名访问、UTM 参数和跨站点击事件；不发送输入内容、文件名或永久标识。
+          </div>
         </div>
       </div>
     </template>
