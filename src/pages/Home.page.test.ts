@@ -10,9 +10,9 @@ describe('i方案首页引导', () => {
     expect(homeSource).toContain('class="iplan-cta"');
   });
 
-  it('keeps the promotion visibly pale yellow with an accessible external action', () => {
+  it('keeps the promotion visibly pale yellow and opens its action in the current window', () => {
     expect(homeSource).toContain('background: #fff8d6;');
     expect(homeSource).toContain('aria-label="了解 i方案"');
-    expect(homeSource).toContain('target="_blank" rel="noopener noreferrer"');
+    expect(homeSource).not.toContain('target="_blank" rel="noopener noreferrer" aria-label="了解 i方案"');
   });
 });

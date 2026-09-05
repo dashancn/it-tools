@@ -32,15 +32,14 @@ const tools = computed<ToolCategory[]>(() => [
 ]);
 
 const ecosystemNavItems = [
-  { label: 'i方案', href: 'https://www.i41.cn?utm_source=tools&utm_medium=tool_referral&utm_campaign=ifangan&utm_content=ecosystem_nav', external: true, cta: true },
-  { label: '开发者工具', href: '/', current: true },
-  { label: '图片压缩', href: 'https://imgzip.i41.cn', external: true },
-  { label: '智能抠图', href: 'https://imgzip.i41.cn/remove-background/', external: true },
-  { label: '多图拼接', href: 'https://imgzip.i41.cn/collage/', external: true },
-  { label: 'PDF 工具', href: 'https://pdf.i41.cn', external: true },
-  { label: '证件水印', href: 'https://watermark.i41.cn', external: true },
-  { label: '临时剪贴板', href: 'https://clip.i41.cn', external: true },
-  { label: '证件照', href: 'https://idphoto.i41.cn', external: true },
+  { label: 'i方案', href: 'https://www.i41.cn?utm_source=tools&utm_medium=tool_referral&utm_campaign=ifangan&utm_content=ecosystem_nav', cta: true },
+  { label: '图片压缩', href: 'https://imgzip.i41.cn' },
+  { label: '智能抠图', href: 'https://imgzip.i41.cn/remove-background/' },
+  { label: '多图拼接', href: 'https://imgzip.i41.cn/collage/' },
+  { label: 'PDF 工具', href: 'https://pdf.i41.cn' },
+  { label: '证件水印', href: 'https://watermark.i41.cn' },
+  { label: '临时剪贴板', href: 'https://clip.i41.cn' },
+  { label: '证件照', href: 'https://idphoto.i41.cn' },
 ];
 </script>
 
@@ -73,40 +72,38 @@ const ecosystemNavItems = [
         <CollapsibleToolMenu :tools-by-category="tools" />
 
         <div class="footer">
-          <div>
-            IT-Tools
-
-            <c-link target="_blank" rel="noopener" :href="`https://github.com/CorentinTh/it-tools/tree/v${version}`">
-              v{{ version }}
-            </c-link>
-
-            <template v-if="commitSha && commitSha.length > 0">
-              -
-              <c-link
-                target="_blank"
-                rel="noopener"
-                type="primary"
-                :href="`https://github.com/CorentinTh/it-tools/tree/${commitSha}`"
-              >
-                {{ commitSha }}
-              </c-link>
-            </template>
-          </div>
-          <div>
-            © {{ new Date().getFullYear() }}
-            <c-link target="_blank" rel="noopener" href="https://corentin.tech?utm_source=it-tools&utm_medium=footer">
-              Corentin Thomasset
-            </c-link>
-          </div>
-          <div>i41 免费实用工具</div>
-          <div class="privacy-notice">隐私说明：常用工具在浏览器处理。我们会发送匿名访问、UTM 参数和跨站点击事件；不发送输入内容、文件名或永久标识。</div>
+          <details class="footer-disclosure">
+            <summary aria-label="关于 IT-Tools 与隐私">关于与隐私</summary>
+            <div class="footer-disclosure__content">
+              <div>
+                基于上游
+                <c-link target="_blank" rel="noopener" :href="`https://github.com/CorentinTh/it-tools/tree/v${version}`">
+                  IT-Tools v{{ version }}
+                </c-link>
+                （MIT License）
+                <template v-if="commitSha && commitSha.length > 0">
+                  ·
+                  <c-link target="_blank" rel="noopener" type="primary" :href="`https://github.com/CorentinTh/it-tools/tree/${commitSha}`">
+                    {{ commitSha }}
+                  </c-link>
+                </template>
+              </div>
+              <div>
+                © {{ new Date().getFullYear() }}
+                <c-link target="_blank" rel="noopener" href="https://corentin.tech?utm_source=it-tools&utm_medium=footer">
+                  Corentin Thomasset
+                </c-link>
+              </div>
+              <div class="privacy-notice">隐私说明：常用工具在浏览器处理。我们会发送匿名访问、UTM 参数和跨站点击事件；不发送输入内容、文件名或永久标识。</div>
+            </div>
+          </details>
         </div>
       </div>
     </template>
 
     <template #content>
       <header class="ecosystem-header">
-        <RouterLink to="/" class="ecosystem-brand" aria-label="IT - TOOLS 首页">
+        <RouterLink to="/" class="ecosystem-brand" aria-label="IT - TOOLS 首页" aria-current="page">
           <span class="ecosystem-brand__icon">IT</span>
           <span>IT - TOOLS</span>
         </RouterLink>
@@ -115,11 +112,10 @@ const ecosystemNavItems = [
             v-for="item in ecosystemNavItems"
             :key="item.label"
             class="ecosystem-nav__item"
-            :class="{ 'ecosystem-nav__item--current': item.current, 'ecosystem-nav__item--cta': item.cta }"
+            :class="{ 'ecosystem-nav__item--cta': item.cta }"
             :href="item.href"
-            :aria-current="item.current ? 'page' : undefined"
-            :target="item.external ? '_blank' : undefined"
-            :rel="item.external ? 'noopener noreferrer' : undefined"
+            :data-tooltip="`前往${item.label}`"
+            :aria-label="`前往${item.label}`"
           >{{ item.label }}</a>
         </nav>
       </header>
@@ -128,11 +124,10 @@ const ecosystemNavItems = [
           v-for="item in ecosystemNavItems"
           :key="item.label"
           class="ecosystem-nav__item"
-          :class="{ 'ecosystem-nav__item--current': item.current, 'ecosystem-nav__item--cta': item.cta }"
+          :class="{ 'ecosystem-nav__item--cta': item.cta }"
           :href="item.href"
-          :aria-current="item.current ? 'page' : undefined"
-          :target="item.external ? '_blank' : undefined"
-          :rel="item.external ? 'noopener noreferrer' : undefined"
+          :data-tooltip="`前往${item.label}`"
+          :aria-label="`前往${item.label}`"
         >{{ item.label }}</a>
       </nav>
 
@@ -243,6 +238,9 @@ const ecosystemNavItems = [
 }
 
 .ecosystem-nav__item {
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
   padding: 8px 10px;
   border-radius: 8px;
   color: #4b5563;
@@ -255,20 +253,36 @@ const ecosystemNavItems = [
     background: #eff6ff;
     color: #1d4ed8;
   }
-}
 
-.ecosystem-nav__item--current {
-  background: #eff6ff;
-  color: #1d4ed8;
-  box-shadow: inset 0 -2px #2563eb;
+  &::after {
+    position: absolute;
+    z-index: 20;
+    top: calc(100% + 8px);
+    left: 50%;
+    padding: 5px 8px;
+    border-radius: 6px;
+    background: #172133;
+    color: #fff;
+    content: attr(data-tooltip);
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 18px;
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-50%, -4px);
+    transition: opacity 0.15s ease, transform 0.15s ease;
+  }
 
-  &:hover {
-    background: #dbeafe;
-    color: #1d4ed8;
+  &:hover::after,
+  &:focus-visible::after {
+    opacity: 1;
+    transform: translate(-50%, 0);
   }
 }
 
 .ecosystem-nav__item--cta {
+  min-width: 72px;
+  box-sizing: border-box;
   background: #2563eb;
   color: #fff;
   font-weight: 700;
@@ -330,6 +344,20 @@ const ecosystemNavItems = [
   color: #838587;
   margin-top: 20px;
   padding: 20px 0;
+}
+
+.footer-disclosure summary {
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.footer-disclosure__content {
+  display: grid;
+  gap: 6px;
+  margin-top: 10px;
+  padding: 0 12px;
+  font-size: 12px;
+  line-height: 1.5;
 }
 
 .sider-content {

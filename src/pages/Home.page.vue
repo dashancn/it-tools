@@ -29,7 +29,7 @@ function onUpdateFavoriteTools() {
           <strong>i方案</strong>
           <span>获取内容创作、客户跟单、文生图与视频制作方案</span>
         </div>
-        <a href="https://www.i41.cn?utm_source=tools&amp;utm_medium=tool_referral&amp;utm_campaign=ifangan&amp;utm_content=promo_banner" target="_blank" rel="noopener noreferrer" aria-label="了解 i方案">
+        <a href="https://www.i41.cn?utm_source=tools&amp;utm_medium=tool_referral&amp;utm_campaign=ifangan&amp;utm_content=promo_banner" aria-label="了解 i方案">
           了解 i方案 →
         </a>
       </aside>
