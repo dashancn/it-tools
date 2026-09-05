@@ -2,7 +2,7 @@
 import { NIcon, useThemeVars } from 'naive-ui';
 
 import { RouterLink } from 'vue-router';
-import { Clipboard, Heart, Home2, IdBadge, Menu2, Photo, ShieldLock } from '@vicons/tabler';
+import { Heart, Home2, Menu2 } from '@vicons/tabler';
 
 import { storeToRefs } from 'pinia';
 import HeroGradient from '../assets/hero-gradient.svg?component';
@@ -30,6 +30,18 @@ const tools = computed<ToolCategory[]>(() => [
   ...(favoriteTools.value.length > 0 ? [{ name: t('tools.categories.favorite-tools'), components: favoriteTools.value }] : []),
   ...toolsByCategory.value,
 ]);
+
+const ecosystemNavItems = [
+  { label: 'i方案', href: 'https://www.i41.cn?utm_source=tools&utm_medium=tool_referral&utm_campaign=ifangan&utm_content=ecosystem_nav', external: true, cta: true },
+  { label: '开发者工具', href: '/', current: true },
+  { label: '图片压缩', href: 'https://imgzip.i41.cn', external: true },
+  { label: '智能抠图', href: 'https://imgzip.i41.cn/remove-background/', external: true },
+  { label: '多图拼接', href: 'https://imgzip.i41.cn/collage/', external: true },
+  { label: 'PDF 工具', href: 'https://pdf.i41.cn', external: true },
+  { label: '证件水印', href: 'https://watermark.i41.cn', external: true },
+  { label: '临时剪贴板', href: 'https://clip.i41.cn', external: true },
+  { label: '证件照', href: 'https://idphoto.i41.cn', external: true },
+];
 </script>
 
 <template>
@@ -56,48 +68,6 @@ const tools = computed<ToolCategory[]>(() => [
             <NavbarButtons />
           </div>
 
-          <div class="company-tools-links company-tools-links--mobile">
-            <c-tooltip
-              position="bottom"
-              tooltip="图片修改压缩是一款浏览器端在线图片处理工具，支持压缩、调整尺寸和格式转换，图片尽量在本地处理，适合日常上传、分享和网页优化。"
-              tooltip-class="company-tool-tooltip-popover"
-            >
-              <c-button href="https://imgzip.i41.cn" rel="noopener noreferrer" target="_blank" size="small" variant="text">
-                <NIcon :component="Photo" mr-1 />
-                图片压缩
-              </c-button>
-            </c-tooltip>
-            <c-tooltip
-              position="bottom"
-              tooltip="证件照工作室是一款浏览器端证件照制作工具，支持本地智能抠图、背景换色、常用证件尺寸和 300DPI 多图拼版，照片无需上传到业务服务器。"
-              tooltip-class="company-tool-tooltip-popover"
-            >
-              <c-button href="https://idphoto.i41.cn" rel="noopener noreferrer" target="_blank" size="small" variant="text">
-                <NIcon :component="IdBadge" mr-1 />
-                证件照
-              </c-button>
-            </c-tooltip>
-            <c-tooltip
-              position="bottom"
-              tooltip="证件水印工具支持为身份证、营业执照和合同截图添加用途水印，图片仅在浏览器本地处理。"
-              tooltip-class="company-tool-tooltip-popover"
-            >
-              <c-button href="https://watermark.i41.cn" rel="noopener noreferrer" target="_blank" size="small" variant="text">
-                <NIcon :component="ShieldLock" mr-1 />
-                证件水印
-              </c-button>
-            </c-tooltip>
-            <c-tooltip
-              position="bottom"
-              tooltip="临时剪贴板支持客户端加密、自动过期、读取次数限制和阅后即焚，适合跨设备传递临时文本。"
-              tooltip-class="company-tool-tooltip-popover"
-            >
-              <c-button href="https://clip.i41.cn" rel="noopener noreferrer" target="_blank" size="small" variant="text">
-                <NIcon :component="Clipboard" mr-1 />
-                临时剪贴板
-              </c-button>
-            </c-tooltip>
-          </div>
         </div>
 
         <CollapsibleToolMenu :tools-by-category="tools" />
@@ -129,15 +99,44 @@ const tools = computed<ToolCategory[]>(() => [
             </c-link>
           </div>
           <div>i41 免费实用工具</div>
-          <div class="privacy-notice">
-            隐私说明：文件和工具输入仍在浏览器本地处理。我们会发送匿名访问、UTM 参数和跨站点击事件；不发送输入内容、文件名或永久标识。
-          </div>
+          <div class="privacy-notice">隐私说明：常用工具在浏览器处理。我们会发送匿名访问、UTM 参数和跨站点击事件；不发送输入内容、文件名或永久标识。</div>
         </div>
       </div>
     </template>
 
     <template #content>
-      <div flex items-center justify-center gap-2>
+      <header class="ecosystem-header">
+        <RouterLink to="/" class="ecosystem-brand" aria-label="IT - TOOLS 首页">
+          <span class="ecosystem-brand__icon">IT</span>
+          <span>IT - TOOLS</span>
+        </RouterLink>
+        <nav class="ecosystem-nav ecosystem-nav--desktop" aria-label="i41 产品导航">
+          <a
+            v-for="item in ecosystemNavItems"
+            :key="item.label"
+            class="ecosystem-nav__item"
+            :class="{ 'ecosystem-nav__item--current': item.current, 'ecosystem-nav__item--cta': item.cta }"
+            :href="item.href"
+            :aria-current="item.current ? 'page' : undefined"
+            :target="item.external ? '_blank' : undefined"
+            :rel="item.external ? 'noopener noreferrer' : undefined"
+          >{{ item.label }}</a>
+        </nav>
+      </header>
+      <nav class="ecosystem-nav ecosystem-nav--mobile" aria-label="i41 产品导航">
+        <a
+          v-for="item in ecosystemNavItems"
+          :key="item.label"
+          class="ecosystem-nav__item"
+          :class="{ 'ecosystem-nav__item--current': item.current, 'ecosystem-nav__item--cta': item.cta }"
+          :href="item.href"
+          :aria-current="item.current ? 'page' : undefined"
+          :target="item.external ? '_blank' : undefined"
+          :rel="item.external ? 'noopener noreferrer' : undefined"
+        >{{ item.label }}</a>
+      </nav>
+
+      <div class="utility-bar" flex items-center justify-center gap-2>
         <c-button
           circle
           variant="text"
@@ -167,69 +166,6 @@ const tools = computed<ToolCategory[]>(() => [
           <NavbarButtons v-if="!styleStore.isSmallScreen" />
         </div>
 
-        <div v-if="!styleStore.isSmallScreen" class="company-tools-links">
-          <c-tooltip
-            position="bottom"
-            tooltip="图片修改压缩是一款浏览器端在线图片处理工具，支持压缩、调整尺寸和格式转换，图片尽量在本地处理，适合日常上传、分享和网页优化。"
-            tooltip-class="company-tool-tooltip-popover"
-          >
-            <c-button href="https://imgzip.i41.cn" rel="noopener noreferrer" target="_blank" size="small" variant="text">
-              <NIcon :component="Photo" mr-1 />
-              图片压缩
-            </c-button>
-          </c-tooltip>
-          <c-tooltip
-            position="bottom"
-            tooltip="证件照工作室是一款浏览器端证件照制作工具，支持本地智能抠图、背景换色、常用证件尺寸和 300DPI 多图拼版，照片无需上传到业务服务器。"
-            tooltip-class="company-tool-tooltip-popover"
-          >
-            <c-button href="https://idphoto.i41.cn" rel="noopener noreferrer" target="_blank" size="small" variant="text">
-              <NIcon :component="IdBadge" mr-1 />
-              证件照
-            </c-button>
-          </c-tooltip>
-          <c-tooltip
-            position="bottom"
-            tooltip="证件水印工具支持为身份证、营业执照和合同截图添加用途水印，图片仅在浏览器本地处理。"
-            tooltip-class="company-tool-tooltip-popover"
-          >
-            <c-button href="https://watermark.i41.cn" rel="noopener noreferrer" target="_blank" size="small" variant="text">
-              <NIcon :component="ShieldLock" mr-1 />
-              证件水印
-            </c-button>
-          </c-tooltip>
-          <c-tooltip
-            position="bottom"
-            tooltip="临时剪贴板支持客户端加密、自动过期、读取次数限制和阅后即焚，适合跨设备传递临时文本。"
-            tooltip-class="company-tool-tooltip-popover"
-          >
-            <c-button href="https://clip.i41.cn" rel="noopener noreferrer" target="_blank" size="small" variant="text">
-              <NIcon :component="Clipboard" mr-1 />
-              临时剪贴板
-            </c-button>
-          </c-tooltip>
-        </div>
-
-        <c-tooltip position="bottom" tooltip-class="ifangan-tooltip-popover">
-          <c-button
-            round
-            href="https://www.i41.cn?utm_source=tools&amp;utm_medium=tool_referral&amp;utm_campaign=ifangan&amp;utm_content=ecosystem_nav"
-            rel="noopener noreferrer"
-            target="_blank"
-            class="ifangan-button"
-            :bordered="false"
-            aria-label="访问i方案"
-            @click="() => tracker.trackEvent({ eventName: 'Visit i41 button clicked' })"
-          >
-            访问i方案
-          </c-button>
-
-          <template #tooltip>
-            <div class="ifangan-tooltip">
-              i方案是一套面向本地实体商家、内容运营人员和营销服务团队的智能内容工作平台。平台围绕行业、平台、品类、风格和使用场景，提供文案生成、文案诊断、客户跟单话术、文生图、视频包制作和精品模板等能力，帮助用户从内容构思、表单草稿、生成优化到后续复用形成完整工作链路。
-            </div>
-          </template>
-        </c-tooltip>
 
         <c-tooltip position="bottom" :tooltip="$t('home.support')">
           <c-button
@@ -263,50 +199,117 @@ const tools = computed<ToolCategory[]>(() => [
 //     background-size: @size @size;
 // }
 
-.ifangan-button {
-  margin-right: 8px;
-  font-weight: 600;
-  box-shadow: 0 0 0 1px v-bind('themeVars.primaryColor');
-}
-
-.company-tools-links {
+.ecosystem-header {
   display: flex;
   align-items: center;
-  gap: 2px;
+  justify-content: space-between;
+  gap: 20px;
+  height: 64px;
+  padding: 0 24px;
+  border-bottom: 1px solid #e5e7eb;
+  background: #fff;
+  color: #172133;
+  box-sizing: border-box;
+}
+
+.ecosystem-brand {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 10px;
+  color: #172133;
+  font-size: 18px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.ecosystem-brand__icon {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  background: linear-gradient(135deg, #2563eb, #0ea5e9);
+  color: #fff;
+  font-size: 13px;
+  letter-spacing: -0.03em;
+}
+
+.ecosystem-nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
   white-space: nowrap;
 }
 
-.company-tools-links--mobile {
-  width: 90%;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin: 8px 0 4px;
+.ecosystem-nav__item {
+  padding: 8px 10px;
+  border-radius: 8px;
+  color: #4b5563;
+  font-size: 14px;
+  line-height: 20px;
+  text-decoration: none;
+  transition: background-color 0.15s ease, color 0.15s ease;
+
+  &:hover {
+    background: #eff6ff;
+    color: #1d4ed8;
+  }
 }
 
-::v-deep(.ifangan-tooltip-popover) {
-  width: min(520px, calc(100vw - 32px));
-  max-width: 520px;
-  white-space: normal;
-  transform-origin: top right;
+.ecosystem-nav__item--current {
+  background: #eff6ff;
+  color: #1d4ed8;
+  box-shadow: inset 0 -2px #2563eb;
+
+  &:hover {
+    background: #dbeafe;
+    color: #1d4ed8;
+  }
 }
 
-::v-deep(.ifangan-tooltip-popover.top-100\%) {
-  right: 0;
-  left: auto;
-  transform: none;
+.ecosystem-nav__item--cta {
+  background: #2563eb;
+  color: #fff;
+  font-weight: 700;
+
+  &:hover {
+    background: #1d4ed8;
+    color: #fff;
+  }
 }
 
-::v-deep(.company-tool-tooltip-popover) {
-  width: min(360px, calc(100vw - 32px));
-  max-width: 360px;
-  white-space: normal;
-  line-height: 1.7;
-  text-align: left;
+.ecosystem-nav--mobile {
+  display: none;
 }
 
-.ifangan-tooltip {
-  line-height: 1.7;
-  text-align: left;
+.utility-bar {
+  min-height: 52px;
+}
+
+@media (max-width: 1180px) {
+  .ecosystem-header {
+    padding: 0 16px;
+  }
+
+  .ecosystem-nav--desktop {
+    display: none;
+  }
+
+  .ecosystem-nav--mobile {
+    display: flex;
+    overflow-x: auto;
+    padding: 8px 16px;
+    border-bottom: 1px solid #e5e7eb;
+    background: #fff;
+    scrollbar-width: thin;
+  }
+}
+
+@media (max-width: 480px) {
+  .ecosystem-brand {
+    font-size: 16px;
+  }
 }
 
 .support-button {

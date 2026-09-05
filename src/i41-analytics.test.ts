@@ -5,7 +5,7 @@ import layoutSource from './layouts/base.layout.vue?raw';
 
 const indexHtml = readFileSync(fileURLToPath(new URL('../index.html', import.meta.url)), 'utf8');
 
-const privacyNotice = '隐私说明：文件和工具输入仍在浏览器本地处理。我们会发送匿名访问、UTM 参数和跨站点击事件；不发送输入内容、文件名或永久标识。';
+const privacyNotice = '隐私说明：常用工具在浏览器处理。我们会发送匿名访问、UTM 参数和跨站点击事件；不发送输入内容、文件名或永久标识。';
 
 describe('i41 anonymous analytics', () => {
   it('loads the independent analytics module for the tools site', () => {

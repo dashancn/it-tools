@@ -26,11 +26,11 @@ function onUpdateFavoriteTools() {
     <div class="grid-wrapper">
       <aside class="iplan-cta" aria-label="关注 i方案">
         <div>
-          <strong>关注 i方案</strong>
+          <strong>i方案</strong>
           <span>获取内容创作、客户跟单、文生图与视频制作方案</span>
         </div>
-        <a href="https://www.i41.cn?utm_source=tools&amp;utm_medium=tool_referral&amp;utm_campaign=ifangan&amp;utm_content=promo_banner" target="_blank" rel="noopener noreferrer">
-          访问 i方案 →
+        <a href="https://www.i41.cn?utm_source=tools&amp;utm_medium=tool_referral&amp;utm_campaign=ifangan&amp;utm_content=promo_banner" target="_blank" rel="noopener noreferrer" aria-label="了解 i方案">
+          了解 i方案 →
         </a>
       </aside>
 
@@ -106,7 +106,7 @@ function onUpdateFavoriteTools() {
   padding: 18px 20px;
   border: 1px solid #f1cf62;
   border-radius: 16px;
-  background: linear-gradient(135deg, #fff9dd, #fff3ac);
+  background: #fff8d6;
   box-shadow: 0 12px 30px rgba(112, 82, 0, 0.12);
 
   div {

@@ -1,26 +1,61 @@
 import { describe, expect, it } from 'vitest';
 import layoutSource from './base.layout.vue?raw';
 
-const iPlanTooltip = 'i方案是一套面向本地实体商家、内容运营人员和营销服务团队的智能内容工作平台。平台围绕行业、平台、品类、风格和使用场景，提供文案生成、文案诊断、客户跟单话术、文生图、视频包制作和精品模板等能力，帮助用户从内容构思、表单草稿、生成优化到后续复用形成完整工作链路。';
-const imageCompressionTooltip = '图片修改压缩是一款浏览器端在线图片处理工具，支持压缩、调整尺寸和格式转换，图片尽量在本地处理，适合日常上传、分享和网页优化。';
-const idPhotoTooltip = '证件照工作室是一款浏览器端证件照制作工具，支持本地智能抠图、背景换色、常用证件尺寸和 300DPI 多图拼版，照片无需上传到业务服务器。';
-const watermarkTooltip = '证件水印工具支持为身份证、营业执照和合同截图添加用途水印，图片仅在浏览器本地处理。';
-const clipboardTooltip = '临时剪贴板支持客户端加密、自动过期、读取次数限制和阅后即焚，适合跨设备传递临时文本。';
+const ecosystemItems = [
+  ['i方案', 'https://www.i41.cn?utm_source=tools&utm_medium=tool_referral&utm_campaign=ifangan&utm_content=ecosystem_nav'],
+  ['开发者工具', '/'],
+  ['图片压缩', 'https://imgzip.i41.cn'],
+  ['智能抠图', 'https://imgzip.i41.cn/remove-background/'],
+  ['多图拼接', 'https://imgzip.i41.cn/collage/'],
+  ['PDF 工具', 'https://pdf.i41.cn'],
+  ['证件水印', 'https://watermark.i41.cn'],
+  ['临时剪贴板', 'https://clip.i41.cn'],
+  ['证件照', 'https://idphoto.i41.cn'],
+] as const;
 
-describe('company navigation tooltips', () => {
-  it.each([
-    ['i方案', iPlanTooltip, 1],
-    ['图片压缩', imageCompressionTooltip, 2],
-    ['证件照', idPhotoTooltip, 2],
-    ['证件水印', watermarkTooltip, 2],
-    ['临时剪贴板', clipboardTooltip, 2],
-  ])('provides the %s description for desktop and mobile entries', (_name, tooltip, expectedCount) => {
-    expect(layoutSource.split(tooltip).length - 1).toBe(expectedCount);
+describe('unified ecosystem navigation', () => {
+  it('defines every menu item in the required order with exact URLs', () => {
+    const positions = ecosystemItems.map(([label, href]) => {
+      const entry = `{ label: '${label}', href: '${href}'`;
+      expect(layoutSource).toContain(entry);
+      return layoutSource.indexOf(entry);
+    });
+
+    expect(positions).toEqual([...positions].sort((a, b) => a - b));
   });
 
-  it('attributes the i方案 ecosystem navigation and the tool site correctly', () => {
-    expect(layoutSource).toContain('href="https://www.i41.cn?utm_source=tools&amp;utm_medium=tool_referral&amp;utm_campaign=ifangan&amp;utm_content=ecosystem_nav"');
-    expect(layoutSource).toContain('i41 免费实用工具');
-    expect(layoutSource).not.toMatch(/i方案(?:永久免费|免费)|免费(?:的)?i方案/);
+  it('renders one ordered menu source on desktop and mobile', () => {
+    expect(layoutSource).toContain('v-for="item in ecosystemNavItems"');
+    expect(layoutSource).toContain('class="ecosystem-nav ecosystem-nav--desktop"');
+    expect(layoutSource).toContain('class="ecosystem-nav ecosystem-nav--mobile"');
+  });
+
+  it('marks developer tools as the current item and secures external links', () => {
+    expect(layoutSource).toContain("{ label: '开发者工具', href: '/', current: true }");
+    expect(layoutSource).toContain(':aria-current="item.current ? \'page\' : undefined"');
+    expect(layoutSource).toContain(':target="item.external ? \'_blank\' : undefined"');
+    expect(layoutSource).toContain(':rel="item.external ? \'noopener noreferrer\' : undefined"');
+  });
+
+  it('keeps i方案 as the dominant blue CTA and uses a quieter current-page state', () => {
+    expect(layoutSource).toContain("{ label: 'i方案', href:");
+    expect(layoutSource).toContain('cta: true');
+    expect(layoutSource).toContain("'ecosystem-nav__item--cta': item.cta");
+    expect(layoutSource).toContain('font-weight: 700;');
+    expect(layoutSource).toContain('background: #eff6ff;');
+    expect(layoutSource).toContain('color: #1d4ed8;');
+  });
+
+  it('uses the site brand on a white 64px navigation bar', () => {
+    expect(layoutSource).toContain('class="ecosystem-brand"');
+    expect(layoutSource).toContain('IT - TOOLS');
+    expect(layoutSource).toContain('height: 64px;');
+    expect(layoutSource).toContain('background: #fff;');
+  });
+
+  it('does not falsely claim that all images stay local', () => {
+    expect(layoutSource).toContain('常用工具在浏览器处理');
+    expect(layoutSource).not.toContain('图片仅在浏览器本地处理');
+    expect(layoutSource).not.toContain('照片无需上传到业务服务器');
   });
 });
