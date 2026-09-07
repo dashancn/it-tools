@@ -13,6 +13,18 @@ const ecosystemItems = [
   ['证件照', 'https://idphoto.i41.cn'],
 ] as const;
 
+const canonicalTooltips = [
+  ['i方案', 'i方案是一套面向本地实体商家、内容运营人员和营销服务团队的智能内容工作平台。平台围绕行业、平台、品类、风格和使用场景，提供文案生成、文案诊断、客户跟单话术、文生图、视频包制作和精品模板等能力，帮助用户从内容构思、表单草稿、生成优化到后续复用形成完整工作链路。'],
+  ['图片压缩', '图片修改压缩是一款浏览器端在线图片处理工具，支持压缩、调整尺寸和格式转换，图片尽量在本地处理，适合日常上传、分享和网页优化。'],
+  ['HEIC 转换', 'HEIC 转换工具可在浏览器本地将 HEIC、HEIF 和 WebP 转为 JPG 或 PNG。'],
+  ['智能抠图', '智能抠图在浏览器中自动移除图片背景，适合人像和商品图快速换背景。'],
+  ['多图拼接', '多图拼接支持在浏览器中组合多张图片并调整布局。'],
+  ['PDF 工具', 'PDF 工具箱提供合并、拆分、压缩、转换、编辑、OCR 和发票拼版等浏览器端 PDF 处理能力。'],
+  ['证件水印', '证件水印工具支持为身份证、营业执照和合同截图添加用途水印，图片仅在浏览器本地处理。'],
+  ['临时剪贴板', '临时剪贴板支持客户端加密、自动过期、读取次数限制和阅后即焚，适合跨设备传递临时文本。'],
+  ['证件照', '证件照工作室是一款浏览器端证件照制作工具，支持本地智能抠图、背景换色、常用证件尺寸和 300DPI 多图拼版，照片无需上传到业务服务器。'],
+] as const;
+
 describe('unified ecosystem navigation', () => {
   it('defines the standard menu order without the current developer-tools entry', () => {
     const positions = ecosystemItems.map(([label, href]) => {
@@ -22,7 +34,7 @@ describe('unified ecosystem navigation', () => {
     });
 
     expect(positions).toEqual([...positions].sort((a, b) => a - b));
-    expect(layoutSource).not.toContain("{ label: '开发者工具'");
+    expect(layoutSource).not.toContain('{ label: \'开发者工具\'');
   });
 
   it('keeps IT-TOOLS as the left-side current-product identity', () => {
@@ -42,17 +54,22 @@ describe('unified ecosystem navigation', () => {
     expect(layoutSource).not.toContain(':rel="item.external');
   });
 
-  it('gives every remaining menu item a Chinese hover and keyboard-focus tooltip', () => {
-    expect(layoutSource).toContain(':data-tooltip="`前往${item.label}`"');
-    expect(layoutSource).toContain(':aria-label="`前往${item.label}`"');
+  it('uses passport-photo-studio full descriptions for every remaining tooltip', () => {
+    for (const [label, tooltip] of canonicalTooltips) {
+      expect(layoutSource).toContain(`{ label: '${label}',`);
+      expect(layoutSource).toContain(`tooltip: '${tooltip}'`);
+    }
+    expect(canonicalTooltips).toHaveLength(ecosystemItems.length);
+    expect(layoutSource).toContain(':data-tooltip="item.tooltip"');
+    expect(layoutSource).toContain(':aria-label="item.tooltip"');
     expect(layoutSource).toContain('&:hover::after');
     expect(layoutSource).toContain('&:focus-visible::after');
   });
 
   it('keeps i方案 as a coordinated CTA with a 72px minimum width', () => {
-    expect(layoutSource).toContain("{ label: 'i方案', href:");
+    expect(layoutSource).toContain('{ label: \'i方案\', href:');
     expect(layoutSource).toContain('cta: true');
-    expect(layoutSource).toContain("'ecosystem-nav__item--cta': item.cta");
+    expect(layoutSource).toContain('\'ecosystem-nav__item--cta\': item.cta');
     expect(layoutSource).toContain('min-width: 72px;');
     expect(layoutSource).toContain('font-weight: 700;');
   });
@@ -72,9 +89,9 @@ describe('unified ecosystem navigation', () => {
     expect(layoutSource).not.toContain('<details class="footer-disclosure" open>');
   });
 
-  it('does not falsely claim that all images stay local', () => {
-    expect(layoutSource).toContain('常用工具在浏览器处理');
-    expect(layoutSource).not.toContain('图片仅在浏览器本地处理');
-    expect(layoutSource).not.toContain('照片无需上传到业务服务器');
+  it('does not make an unqualified site-wide claim that all images stay local', () => {
+    expect(layoutSource).toContain('class="privacy-notice">隐私说明：常用工具在浏览器处理。');
+    expect(layoutSource).not.toContain('class="privacy-notice">图片仅在浏览器本地处理');
+    expect(layoutSource).not.toContain('class="privacy-notice">照片无需上传到业务服务器');
   });
 });
