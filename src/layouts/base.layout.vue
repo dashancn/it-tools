@@ -34,6 +34,7 @@ const tools = computed<ToolCategory[]>(() => [
 const ecosystemNavItems = [
   { label: 'i方案', href: 'https://www.i41.cn?utm_source=tools&utm_medium=tool_referral&utm_campaign=ifangan&utm_content=ecosystem_nav', cta: true },
   { label: '图片压缩', href: 'https://imgzip.i41.cn' },
+  { label: 'HEIC 转换', href: 'https://imgzip.i41.cn/heic-converter/' },
   { label: '智能抠图', href: 'https://imgzip.i41.cn/remove-background/' },
   { label: '多图拼接', href: 'https://imgzip.i41.cn/collage/' },
   { label: 'PDF 工具', href: 'https://pdf.i41.cn' },

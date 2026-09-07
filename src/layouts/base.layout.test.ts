@@ -4,6 +4,7 @@ import layoutSource from './base.layout.vue?raw';
 const ecosystemItems = [
   ['i方案', 'https://www.i41.cn?utm_source=tools&utm_medium=tool_referral&utm_campaign=ifangan&utm_content=ecosystem_nav'],
   ['图片压缩', 'https://imgzip.i41.cn'],
+  ['HEIC 转换', 'https://imgzip.i41.cn/heic-converter/'],
   ['智能抠图', 'https://imgzip.i41.cn/remove-background/'],
   ['多图拼接', 'https://imgzip.i41.cn/collage/'],
   ['PDF 工具', 'https://pdf.i41.cn'],
