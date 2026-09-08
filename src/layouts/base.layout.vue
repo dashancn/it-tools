@@ -119,18 +119,18 @@ const ecosystemNavItems = [
             :aria-label="item.tooltip"
           >{{ item.label }}</a>
         </nav>
+        <nav class="ecosystem-nav ecosystem-nav--mobile" aria-label="i41 产品导航">
+          <a
+            v-for="item in ecosystemNavItems"
+            :key="item.label"
+            class="ecosystem-nav__item"
+            :class="{ 'ecosystem-nav__item--cta': item.cta }"
+            :href="item.href"
+            :data-tooltip="item.tooltip"
+            :aria-label="item.tooltip"
+          >{{ item.label }}</a>
+        </nav>
       </header>
-      <nav class="ecosystem-nav ecosystem-nav--mobile" aria-label="i41 产品导航">
-        <a
-          v-for="item in ecosystemNavItems"
-          :key="item.label"
-          class="ecosystem-nav__item"
-          :class="{ 'ecosystem-nav__item--cta': item.cta }"
-          :href="item.href"
-          :data-tooltip="item.tooltip"
-          :aria-label="item.tooltip"
-        >{{ item.label }}</a>
-      </nav>
 
       <div class="utility-bar" flex items-center justify-center gap-2>
         <c-button
@@ -194,16 +194,20 @@ const ecosystemNavItems = [
 // }
 
 .ecosystem-header {
+  position: sticky;
+  top: 0;
+  z-index: 30;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 20px;
-  height: 64px;
-  padding: 0 24px;
+  min-height: 64px;
+  padding: 8px 24px;
   border-bottom: 1px solid #e5e7eb;
   background: #fff;
   color: #172133;
   box-sizing: border-box;
+  font-family: Inter, "PingFang SC", "Microsoft YaHei", sans-serif;
 }
 
 .ecosystem-brand {
@@ -231,8 +235,11 @@ const ecosystemNavItems = [
 
 .ecosystem-nav {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 4px;
+  justify-content: flex-end;
+  gap: 2px;
+  margin-left: auto;
   white-space: nowrap;
 }
 
@@ -240,11 +247,12 @@ const ecosystemNavItems = [
   position: relative;
   display: inline-flex;
   justify-content: center;
-  padding: 8px 10px;
+  padding: 7px 8px;
   border-radius: 8px;
-  color: #4b5563;
-  font-size: 14px;
-  line-height: 20px;
+  color: #556176;
+  font-size: 13px;
+  font-weight: 650;
+  line-height: 1.45;
   text-decoration: none;
   transition: background-color 0.15s ease, color 0.15s ease;
 
@@ -254,18 +262,22 @@ const ecosystemNavItems = [
   }
 
   &::after {
-    position: absolute;
-    z-index: 20;
-    top: calc(100% + 8px);
-    left: 50%;
-    padding: 5px 8px;
-    border-radius: 6px;
+    position: fixed;
+    z-index: 40;
+    top: 58px;
+    left: 50vw;
+    width: min(420px, calc(100vw - 24px));
+    box-sizing: border-box;
+    padding: 9px 11px;
+    border-radius: 7px;
     background: #172133;
     color: #fff;
     content: attr(data-tooltip);
     font-size: 12px;
-    font-weight: 400;
-    line-height: 18px;
+    font-weight: 600;
+    line-height: 1.45;
+    white-space: normal;
+    overflow-wrap: anywhere;
     opacity: 0;
     pointer-events: none;
     transform: translate(-50%, -4px);
@@ -280,11 +292,11 @@ const ecosystemNavItems = [
 }
 
 .ecosystem-nav__item--cta {
-  min-width: 72px;
+  min-width: 76px;
   box-sizing: border-box;
-  background: #2563eb;
+  background: #246bfd;
   color: #fff;
-  font-weight: 700;
+  font-weight: 800;
 
   &:hover {
     background: #1d4ed8;
@@ -302,7 +314,11 @@ const ecosystemNavItems = [
 
 @media (max-width: 1180px) {
   .ecosystem-header {
-    padding: 0 16px;
+    flex-wrap: wrap;
+    align-content: center;
+    gap: 4px 14px;
+    padding: 8px 16px;
+    overflow-x: clip;
   }
 
   .ecosystem-nav--desktop {
@@ -311,11 +327,22 @@ const ecosystemNavItems = [
 
   .ecosystem-nav--mobile {
     display: flex;
-    overflow-x: auto;
-    padding: 8px 16px;
-    border-bottom: 1px solid #e5e7eb;
-    background: #fff;
-    scrollbar-width: thin;
+    flex: 0 0 100%;
+    justify-content: flex-start;
+    margin-left: 0;
+    overflow-x: clip;
+  }
+
+  .ecosystem-nav__item::after {
+    top: 12px;
+    left: 12px;
+    width: calc(100vw - 24px);
+    transform: translateY(-4px);
+  }
+
+  .ecosystem-nav__item:hover::after,
+  .ecosystem-nav__item:focus-visible::after {
+    transform: translateY(0);
   }
 }
 

@@ -66,17 +66,45 @@ describe('unified ecosystem navigation', () => {
     expect(layoutSource).toContain('&:focus-visible::after');
   });
 
-  it('keeps i方案 as a coordinated CTA with a 72px minimum width', () => {
+  it('keeps i方案 aligned with the watermark CTA dimensions', () => {
     expect(layoutSource).toContain('{ label: \'i方案\', href:');
     expect(layoutSource).toContain('cta: true');
     expect(layoutSource).toContain('\'ecosystem-nav__item--cta\': item.cta');
-    expect(layoutSource).toContain('min-width: 72px;');
-    expect(layoutSource).toContain('font-weight: 700;');
+    expect(layoutSource).toContain('min-width: 76px;');
+    expect(layoutSource).toContain('font-weight: 800;');
   });
 
   it('uses the site brand on a white 64px navigation bar', () => {
-    expect(layoutSource).toContain('height: 64px;');
+    expect(layoutSource).toContain('min-height: 64px;');
     expect(layoutSource).toContain('background: #fff;');
+  });
+
+  it('matches the watermark navigation typography and spacing', () => {
+    expect(layoutSource).toContain('font-family: Inter, "PingFang SC", "Microsoft YaHei", sans-serif;');
+    expect(layoutSource).toContain('gap: 2px;');
+    expect(layoutSource).toContain('padding: 7px 8px;');
+    expect(layoutSource).toContain('font-size: 13px;');
+    expect(layoutSource).toContain('font-weight: 650;');
+  });
+
+  it('keeps the complete mobile navigation inside the sticky header', () => {
+    const headerStart = layoutSource.indexOf('<header class="ecosystem-header">');
+    const headerEnd = layoutSource.indexOf('</header>', headerStart);
+    const mobileNav = layoutSource.indexOf('class="ecosystem-nav ecosystem-nav--mobile"');
+
+    expect(mobileNav).toBeGreaterThan(headerStart);
+    expect(mobileNav).toBeLessThan(headerEnd);
+    expect(layoutSource).toContain('position: sticky;');
+    expect(layoutSource).toContain('flex-wrap: wrap;');
+    expect(layoutSource).toContain('overflow-x: clip;');
+    expect(layoutSource).not.toContain('overflow-x: auto;');
+  });
+
+  it('allows every tooltip to wrap within the viewport', () => {
+    expect(layoutSource).toContain('position: fixed;');
+    expect(layoutSource).toContain('width: min(420px, calc(100vw - 24px));');
+    expect(layoutSource).toContain('white-space: normal;');
+    expect(layoutSource).toContain('overflow-wrap: anywhere;');
   });
 
   it('keeps upstream attribution, MIT license, and privacy details in a collapsed disclosure', () => {
