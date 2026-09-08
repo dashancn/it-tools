@@ -5,7 +5,7 @@ const fullTooltip = 'i方案是一套面向本地实体商家、内容运营人�
 
 for (const viewport of [
   { name: 'desktop', width: 1280, height: 800, selector: '.ecosystem-nav--desktop' },
-  { name: 'mobile', width: 390, height: 844, selector: '.ecosystem-nav--mobile' },
+  { name: 'mobile', width: 375, height: 812, selector: '.ecosystem-nav--mobile' },
 ]) {
   test(`${viewport.name} ecosystem tooltip is visible on hover and focus`, async ({ page }) => {
     await page.setViewportSize(viewport);
@@ -34,8 +34,8 @@ test('desktop tooltip wraps and stays inside the viewport', async ({ page }) => 
   expect(tooltip.height).toBeGreaterThan(36);
 });
 
-test('mobile navigation wraps without horizontal scrolling and stays sticky', async ({ page }) => {
-  await page.setViewportSize({ width: 390, height: 844 });
+test('mobile navigation is right aligned, wraps without horizontal scrolling, and stays sticky', async ({ page }) => {
+  await page.setViewportSize({ width: 375, height: 812 });
   await page.goto('/');
 
   const header = page.locator('.ecosystem-header');
@@ -44,8 +44,28 @@ test('mobile navigation wraps without horizontal scrolling and stays sticky', as
   const initialHeaderY = (await header.boundingBox())?.y;
   expect(initial.headerPosition).toBe('sticky');
   expect(initial.navFlexWrap).toBe('wrap');
-  expect(initial.documentScrollWidth).toBeLessThanOrEqual(390);
+  expect(initial.navJustifyContent).toBe('flex-end');
+  expect(initial.documentScrollWidth).toBeLessThanOrEqual(375);
   expect(initial.navScrollWidth).toBeLessThanOrEqual(initial.navClientWidth);
+  expect(initial.navRight).toBeCloseTo(initial.headerRight, 0);
+
+  const mobileItemStyle = await nav.locator('a').nth(1).evaluate((element) => {
+    const style = getComputedStyle(element);
+    return {
+      fontFamily: style.fontFamily,
+      fontSize: style.fontSize,
+      fontWeight: style.fontWeight,
+      padding: `${style.paddingTop} ${style.paddingRight} ${style.paddingBottom} ${style.paddingLeft}`,
+      borderRadius: style.borderRadius,
+    };
+  });
+  expect(mobileItemStyle.fontFamily).toContain('Inter');
+  expect(mobileItemStyle.fontFamily).toContain('PingFang SC');
+  expect(mobileItemStyle.fontFamily).toContain('Microsoft YaHei');
+  expect(mobileItemStyle.fontSize).toBe('12px');
+  expect(mobileItemStyle.fontWeight).toBe('650');
+  expect(mobileItemStyle.padding).toBe('7px 8px 7px 8px');
+  expect(mobileItemStyle.borderRadius).toBe('8px');
 
   await page.evaluate(() => document.querySelector('.n-layout-scroll-container')?.scrollTo(0, document.body.scrollHeight));
   await expect.poll(async () => (await header.boundingBox())?.y).toBe(initialHeaderY);
@@ -54,7 +74,31 @@ test('mobile navigation wraps without horizontal scrolling and stays sticky', as
   await link.focus();
   const tooltip = await tooltipMetrics(link);
   expect(tooltip.left).toBeGreaterThanOrEqual(0);
-  expect(tooltip.right).toBeLessThanOrEqual(390);
+  expect(tooltip.right).toBeLessThanOrEqual(375);
+});
+
+test('desktop navigation matches watermark typography and dimensions at 1280px', async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 800 });
+  await page.goto('/');
+  const nav = page.locator('.ecosystem-nav--desktop');
+  const itemStyle = await nav.locator('a').nth(1).evaluate((element) => {
+    const style = getComputedStyle(element);
+    return {
+      fontFamily: style.fontFamily,
+      fontSize: style.fontSize,
+      fontWeight: style.fontWeight,
+      padding: `${style.paddingTop} ${style.paddingRight} ${style.paddingBottom} ${style.paddingLeft}`,
+      borderRadius: style.borderRadius,
+    };
+  });
+  expect(itemStyle.fontFamily).toContain('Inter');
+  expect(itemStyle.fontFamily).toContain('PingFang SC');
+  expect(itemStyle.fontFamily).toContain('Microsoft YaHei');
+  expect(itemStyle.fontSize).toBe('13px');
+  expect(itemStyle.fontWeight).toBe('650');
+  expect(itemStyle.padding).toBe('7px 8px 7px 8px');
+  expect(itemStyle.borderRadius).toBe('8px');
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(1280);
 });
 
 async function tooltipStyle(link: Locator) {
@@ -88,8 +132,11 @@ async function navigationMetrics(header: Locator, nav: Locator) {
   return nav.evaluate((element, headerElement) => ({
     headerPosition: getComputedStyle(headerElement).position,
     navFlexWrap: getComputedStyle(element).flexWrap,
+    navJustifyContent: getComputedStyle(element).justifyContent,
     documentScrollWidth: document.documentElement.scrollWidth,
     navScrollWidth: element.scrollWidth,
     navClientWidth: element.clientWidth,
+    navRight: element.getBoundingClientRect().right,
+    headerRight: headerElement.getBoundingClientRect().right - Number.parseFloat(getComputedStyle(headerElement).paddingRight),
   }), headerHandle);
 }

@@ -85,6 +85,8 @@ describe('unified ecosystem navigation', () => {
     expect(layoutSource).toContain('padding: 7px 8px;');
     expect(layoutSource).toContain('font-size: 13px;');
     expect(layoutSource).toContain('font-weight: 650;');
+    expect(layoutSource).toContain('border-radius: 8px;');
+    expect(layoutSource).toContain('font-size: 12px;');
   });
 
   it('keeps the complete mobile navigation inside the sticky header', () => {
@@ -96,6 +98,7 @@ describe('unified ecosystem navigation', () => {
     expect(mobileNav).toBeLessThan(headerEnd);
     expect(layoutSource).toContain('position: sticky;');
     expect(layoutSource).toContain('flex-wrap: wrap;');
+    expect(layoutSource).toContain('justify-content: flex-end;');
     expect(layoutSource).toContain('overflow-x: clip;');
     expect(layoutSource).not.toContain('overflow-x: auto;');
   });

@@ -328,9 +328,13 @@ const ecosystemNavItems = [
   .ecosystem-nav--mobile {
     display: flex;
     flex: 0 0 100%;
-    justify-content: flex-start;
+    justify-content: flex-end;
     margin-left: 0;
     overflow-x: clip;
+  }
+
+  .ecosystem-nav__item {
+    font-size: 12px;
   }
 
   .ecosystem-nav__item::after {
