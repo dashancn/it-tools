@@ -4,13 +4,19 @@ import { RouterLink } from 'vue-router';
 import FavoriteButton from './FavoriteButton.vue';
 import type { Tool } from '@/tools/tools.types';
 
-const props = defineProps<{ tool: Tool & { category: string } }>();
+const props = defineProps<{
+  tool: Tool & { category: string }
+  openExternalInCurrentWindow?: boolean
+}>();
 const { tool } = toRefs(props);
 const theme = useThemeVars();
 const cardLinkTag = computed(() => tool.value.externalUrl ? 'a' : RouterLink);
-const cardLinkProps = computed(() => tool.value.externalUrl
-  ? { href: tool.value.externalUrl, target: '_blank', rel: 'noopener noreferrer' }
-  : { to: tool.value.path });
+const cardLinkProps = computed(() => {
+  if (!tool.value.externalUrl) return { to: tool.value.path };
+  return props.openExternalInCurrentWindow
+    ? { href: tool.value.externalUrl }
+    : { href: tool.value.externalUrl, target: '_blank', rel: 'noopener noreferrer' };
+});
 </script>
 
 <template>

@@ -14,6 +14,10 @@ useHead({ title: 'IT Tools - Handy online tools for developers' });
 const { t } = useI18n();
 
 const favoriteTools = computed(() => toolStore.favoriteTools);
+const latestCompanyToolPaths = ['/ifangan', '/image-edit-compressor', '/heic-converter', '/background-remover', '/image-collage', '/pdf-tools', '/id-watermark', '/temporary-clipboard', '/id-photo-maker'];
+const latestCompanyTools = computed(() => latestCompanyToolPaths
+  .map(path => toolStore.tools.find(tool => tool.path === path))
+  .filter((tool): tool is NonNullable<typeof tool> => Boolean(tool)));
 
 // Update favorite tools order when drag is finished
 function onUpdateFavoriteTools() {
@@ -77,12 +81,12 @@ function onUpdateFavoriteTools() {
         </div>
       </transition>
 
-      <div v-if="toolStore.newTools.length > 0">
+      <div v-if="latestCompanyTools.length > 0">
         <h3 class="mb-5px mt-25px text-neutral-400 font-500">
           {{ t('home.categories.newestTools') }}
         </h3>
         <div class="grid grid-cols-1 gap-12px lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-2 xl:grid-cols-4">
-          <ToolCard v-for="tool in toolStore.newTools" :key="tool.name" :tool="tool" />
+          <ToolCard v-for="tool in latestCompanyTools" :key="tool.name" :tool="tool" :open-external-in-current-window="true" />
         </div>
       </div>
 

@@ -109,6 +109,46 @@ const imageEditCompressor: Tool = {
   isNew: true,
 };
 
+const heicConverter: Tool = {
+  name: 'HEIC 转换',
+  path: '/heic-converter',
+  description: '在浏览器本地将 HEIC、HEIF 和 WebP 转为 JPG 或 PNG',
+  keywords: ['heic', 'heif', 'webp', 'jpg', 'png', '图片转换'],
+  icon: Photo,
+  externalUrl: 'https://imgzip.i41.cn/heic-converter/',
+  isNew: true,
+};
+
+const backgroundRemover: Tool = {
+  name: '智能抠图',
+  path: '/background-remover',
+  description: '在浏览器本地自动识别主体并移除图片背景',
+  keywords: ['background removal', '抠图', '去背景', '透明背景'],
+  icon: Photo,
+  externalUrl: 'https://imgzip.i41.cn/remove-background/',
+  isNew: true,
+};
+
+const imageCollage: Tool = {
+  name: '多图拼接',
+  path: '/image-collage',
+  description: '在浏览器本地将多张图片制作成宫格或长图',
+  keywords: ['collage', '拼图', '图片拼接', '长图', '宫格'],
+  icon: Photo,
+  externalUrl: 'https://imgzip.i41.cn/collage/',
+  isNew: true,
+};
+
+const pdfTools: Tool = {
+  name: 'PDF 工具',
+  path: '/pdf-tools',
+  description: '合并、拆分、压缩、转换、编辑和 OCR 等浏览器端 PDF 工具',
+  keywords: ['pdf', '合并', '拆分', '压缩', '转换', 'OCR'],
+  icon: Photo,
+  externalUrl: 'https://pdf.i41.cn',
+  isNew: true,
+};
+
 const idPhotoMaker: Tool = {
   name: '证件照制作',
   path: '/id-photo-maker',
@@ -192,7 +232,21 @@ export const toolsByCategory: ToolCategory[] = [
   },
   {
     name: 'Images and videos',
-    components: [ifangan, imageEditCompressor, idPhotoMaker, idWatermark, temporaryClipboard, qrCodeGenerator, wifiQrCodeGenerator, svgPlaceholderGenerator, cameraRecorder],
+    components: [
+      ifangan,
+      imageEditCompressor,
+      heicConverter,
+      backgroundRemover,
+      imageCollage,
+      pdfTools,
+      idWatermark,
+      temporaryClipboard,
+      idPhotoMaker,
+      qrCodeGenerator,
+      wifiQrCodeGenerator,
+      svgPlaceholderGenerator,
+      cameraRecorder,
+    ],
   },
   {
     name: 'Development',
