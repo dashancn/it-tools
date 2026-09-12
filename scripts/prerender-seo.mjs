@@ -129,6 +129,12 @@ export function prerender(rootDirectory) {
 
   const notFound = `<!DOCTYPE html>\n<html lang="zh-CN"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="robots" content="noindex, nofollow" /><title>404 页面不存在 - IT Tools</title></head><body><main><h1>404 页面不存在</h1><p>抱歉，该页面似乎不存在。</p><p><a href="/">返回 IT Tools 首页</a></p></main><script type="module" src="https://stats.i41.cn/analytics.js"></script></body></html>\n`;
   writeFileSync(join(distDirectory, '404.html'), notFound);
+
+  const redirects = getSeoPages(rootDirectory)
+    .filter(page => page.path !== '/')
+    .map(page => `${page.path} ${page.path}/index.html 200`)
+    .join('\n');
+  writeFileSync(join(distDirectory, '_redirects'), `${redirects}\n`);
 }
 
 const currentFile = fileURLToPath(import.meta.url);

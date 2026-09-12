@@ -52,6 +52,15 @@ describe('production SEO prerender', () => {
     }
   });
 
+  it('maps canonical route paths to static HTML without a trailing-slash redirect', async () => {
+    const { getSeoPages } = await import('../scripts/prerender-seo.mjs');
+    const redirects = readFileSync(resolve(root, 'dist/_redirects'), 'utf8').trim().split('\n');
+    const expected = getSeoPages(root)
+      .filter(page => page.path !== '/')
+      .map(page => `${page.path} ${page.path}/index.html 200`);
+    expect(redirects).toEqual(expected);
+  });
+
   it('ships a noindex 404 document and no catch-all static rewrite', () => {
     const html = readFileSync(resolve(root, 'dist/404.html'), 'utf8');
     expect(html).toContain('<meta name="robots" content="noindex, nofollow"');
