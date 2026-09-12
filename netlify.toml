@@ -1,4 +1,2 @@
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+# Routes are emitted as static <route>/index.html files at build time.
+# Unknown paths intentionally fall through to the host's real 404 response.
